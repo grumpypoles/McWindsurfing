@@ -1,11 +1,9 @@
 import { useState, useEffect } from "react";
 
-import { addSail } from "@/app/_lib/actions_sails";
-import { editSail } from "@/app/_lib/actions_sails";
 import Image from "next/image";
-import { addBoard, editBoard } from "@/app/_lib/actions_boards";
+import { addBoom, editBoom } from "@/app/_lib/actions_booms";
 
-const BoardsForm = ({ equipment, edit }) => {
+const BoomForm = ({ equipment, edit }) => {
   const [imageUrls, setImageUrls] = useState([]);
   const [invoiceUrls, setInvoiceUrls] = useState([]);
 
@@ -27,24 +25,18 @@ const BoardsForm = ({ equipment, edit }) => {
 
   // State for form data
   const [formData, setFormData] = useState({
-    selcode: "BDxx",
+    selcode: "BMxx",
     model: "",
     make: "",
     year: "",
-    width: "",
     length: "",
-    volume: "",
-    tail: "",
+    adj_length: "",
+    adj_type: "",
     weight: "",
-    technology: "",
-    fin_box: "",
-    fin_size: "",
-    sail_size: "",
-    back_strap: "",
-    front_strap: "",
-    shaper: "",
-    programme: "",
-    serial_text: "",
+    diameter: "",
+    body: "",
+    front_end: "",
+    back_end: "",
     // image: "",
     web_url: "",
     is_active: "",
@@ -69,20 +61,14 @@ const BoardsForm = ({ equipment, edit }) => {
         model: equipment[0].model || "",
         make: equipment[0].make || "",
         year: equipment[0].year || "",
-        width: equipment[0].width || "",
         length: equipment[0].length || "",
-        volume: equipment[0].volume || "",
-        tail: equipment[0].tail || "0.00",
-        weight: equipment[0].weight || "5.0",
-        technology: equipment[0].technology || "",
-        fin_box: equipment[0].fin_box || "",
-        fin_size: equipment[0].fin_size || "",
-        sail_size: equipment[0].sail_size || "",
-        back_strap: equipment[0].back_strap || "",
-        front_strap: equipment[0].front_strap || "",
-        shaper: equipment[0].shaper || "Unknown",
-        programme: equipment[0].programme || "",
-        serial_number: equipment[0].serial_number || "xxx",
+        adj_length: equipment[0].adj_length || "",
+        adj_type: equipment[0].adj_type || "",
+        weight: equipment[0].weight || "",
+        diameter: equipment[0].diameter || "",
+        body: equipment[0].body || "",
+        front_end: equipment[0].front_end || "",
+        back_end: equipment[0].back_end || "",
         // image: equipment[0].image || "",
         web_url: equipment[0].web_url || "",
         is_active: equipment[0].is_active || "",
@@ -92,7 +78,7 @@ const BoardsForm = ({ equipment, edit }) => {
         retail_price: equipment[0].retail_price || "",
         paid_price: equipment[0].paid_price || "",
         comments: equipment[0].comments || "",
-        // invoice: equipment[0].invoice || "",
+        invoice: equipment[0].invoice || "",
         disposal_date: equipment[0].disposal_date || "1990-01-01",
         disposal: equipment[0].disposal || "",
         disposal_price: equipment[0].disposal_price || "0.00",
@@ -100,7 +86,7 @@ const BoardsForm = ({ equipment, edit }) => {
       });
     }
   }, [edit, equipment]);
-console.log(formData.is_active)
+
   // Handle form input change
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -116,10 +102,10 @@ console.log(formData.is_active)
         <div className="w-full mx-auto bg-primary-800">
           <div className="px-8 pt-6 pb-4 border-b-4 border-primary-700 ">
             <h1 className="text-4xl font-semibold text-primary-500">
-              {edit ? "Edit Board" : "Add New Board"}
+              {edit ? "Edit Boom" : "Add New Boom"}
             </h1>
           </div>
-          <form className="px-8 pb-6" action={edit ? editBoard : addBoard}>
+          <form className="px-8 pb-6" action={edit ? editBoom : addBoom}>
             <div className="grid grid-cols-12 gap-2 pt-4 mb-5">
               <div>
                 <label
@@ -132,7 +118,7 @@ console.log(formData.is_active)
                   type="text"
                   name="selcode"
                   id="selcode"
-                  placeholder="SA"
+                  placeholder="MT"
                   value={formData.selcode}
                   onChange={handleInputChange}
                   required
@@ -189,27 +175,8 @@ console.log(formData.is_active)
                   className="w-full rounded-md border border-primary-200 bg-primary-100 py-2.5 px-6 text-base font-medium text-primary-900 focus:ring focus:ring-opacity-50 disabled:opacity-50"
                 />
               </div>
-              <div className="">
-                <label
-                  htmlFor="width"
-                  className="block mb-3 text-base font-medium text-primary-300"
-                >
-                  Width
-                </label>
-                <input
-                  type="number"
-                  min="10"
-                  step="0.10"
-                  name="width"
-                  id="width"
-                  required
-                  value={formData.width}
-                  onChange={handleInputChange}
-                  className="w-full rounded-md border border-primary-200 bg-primary-100 py-2.5 px-6 text-base font-medium text-primary-900 focus:ring focus:ring-opacity-50 disabled:opacity-50"
-                />
-              </div>
 
-              <div className="">
+              <div className="col-span-2">
                 <label
                   htmlFor="length"
                   className="block mb-3 text-base font-medium text-primary-300"
@@ -217,9 +184,7 @@ console.log(formData.is_active)
                   Length
                 </label>
                 <input
-                  type="number"
-                  min="1"
-                  step="0.10"
+                  type="text"
                   name="length"
                   id="length"
                   required
@@ -228,24 +193,43 @@ console.log(formData.is_active)
                   className="w-full rounded-md border border-primary-200 bg-primary-100 py-2.5 px-6 text-base font-medium text-primary-900 focus:ring focus:ring-opacity-50 disabled:opacity-50"
                 />
               </div>
-              <div className="">
+              <div className="col-span-2">
                 <label
-                  htmlFor="volume"
+                  htmlFor="adj_length"
                   className="block mb-3 text-base font-medium text-primary-300"
                 >
-                  Volume
+                  Adjustment Length
                 </label>
                 <input
-                  type="number"
-                  name="volume"
-                  id="volume"
+                  type="text"
+                  name="adj_length"
+                  id="adj_length"
                   required
-                  value={formData.volume}
+                  value={formData.adj_length}
                   onChange={handleInputChange}
                   className="w-full rounded-md border border-primary-200 bg-primary-100 py-2.5 px-6 text-base font-medium text-primary-900 focus:ring focus:ring-opacity-50 disabled:opacity-50"
                 />
               </div>
-              <div className="">
+              <div className="col-span-2">
+                <label
+                  htmlFor="adj_type"
+                  className="block mb-3 text-base font-medium text-primary-300"
+                >
+                  Adjustment Type
+                </label>
+                <input
+                  type="text"
+                  name="adj_type"
+                  id="adj_type"
+                  required
+                  value={formData.adj_type}
+                  onChange={handleInputChange}
+                  className="w-full rounded-md border border-primary-200 bg-primary-100 py-2.5 px-6 text-base font-medium text-primary-900 focus:ring focus:ring-opacity-50 disabled:opacity-50"
+                />
+              </div>
+            </div>
+            <div className="grid grid-cols-10 gap-2 pt-4 mb-5">
+            <div className="col-span-2">
                 <label
                   htmlFor="weight"
                   className="block mb-3 text-base font-medium text-primary-300"
@@ -254,8 +238,6 @@ console.log(formData.is_active)
                 </label>
                 <input
                   type="number"
-                  min="1"
-                  max="20"
                   step="0.01"
                   name="weight"
                   id="weight"
@@ -265,184 +247,75 @@ console.log(formData.is_active)
                   className="w-full rounded-md border border-primary-200 bg-primary-100 py-2.5 px-6 text-base font-medium text-primary-900 focus:ring focus:ring-opacity-50 disabled:opacity-50"
                 />
               </div>
-              <div className="col-span-2">
-                <label
-                  htmlFor="sail_size"
-                  className="block mb-3 text-base font-medium text-primary-300"
-                >
-                  Sail Size
-                </label>
-                <input
-                  type="text"
-                  min="1"
-                  step="0.01"
-                  name="sail_size"
-                  id="sail_size"
-                  required
-                  value={formData.sail_size}
-                  onChange={handleInputChange}
-                  className="w-full rounded-md border border-primary-200 bg-primary-100 py-2.5 px-6 text-base font-medium text-primary-900 focus:ring focus:ring-opacity-50 disabled:opacity-50"
-                />
-              </div>
-            </div>
-            <div className="grid grid-cols-12 gap-2 mb-5 ">
-              <div className="col-span-4">
-                <label
-                  htmlFor="technology"
-                  className="block mb-3 text-base font-medium text-primary-300"
-                >
-                  Technology
-                </label>
-                <input
-                  type="text"
-                  name="technology"
-                  id="technology"
-                  required
-                  value={formData.technology}
-                  onChange={handleInputChange}
-                  className="w-full rounded-md border border-primary-200 bg-primary-100 py-2.5 px-6 text-base font-medium text-primary-900 focus:ring focus:ring-opacity-50 disabled:opacity-50"
-                />
-              </div>
 
               <div className="col-span-2">
                 <label
-                  htmlFor="programme"
+                  htmlFor="diameter"
                   className="block mb-3 text-base font-medium text-primary-300"
                 >
-                  Programme
+                  Diameter
                 </label>
                 <input
                   type="text"
-                  name="programme"
-                  id="programme"
+                  name="diameter"
+                  id="diameter"
                   required
-                  value={formData.programme}
+                  value={formData.diameter}
                   onChange={handleInputChange}
                   className="w-full rounded-md border border-primary-200 bg-primary-100 py-2.5 px-6 text-base font-medium text-primary-900 focus:ring focus:ring-opacity-50 disabled:opacity-50"
                 />
               </div>
               <div className="col-span-2">
                 <label
-                  htmlFor="shaper"
+                  htmlFor="body"
                   className="block mb-3 text-base font-medium text-primary-300"
                 >
-                  Shaper
+                  Body
                 </label>
                 <input
                   type="text"
-                  name="shaper"
-                  id="shaper"
-                  value={formData.shaper}
+                  name="body"
+                  id="body"
+                  required
+                  value={formData.body}
                   onChange={handleInputChange}
                   className="w-full rounded-md border border-primary-200 bg-primary-100 py-2.5 px-6 text-base font-medium text-primary-900 focus:ring focus:ring-opacity-50 disabled:opacity-50"
                 />
               </div>
               <div className="col-span-2">
                 <label
-                  htmlFor="back_strap"
+                  htmlFor="front_end"
                   className="block mb-3 text-base font-medium text-primary-300"
                 >
-                  Back Strap
+                  Front End
                 </label>
                 <input
                   type="text"
-                  name="back_strap"
-                  id="back_strap"
-                  value={formData.back_strap}
+                  name="front_end"
+                  id="front_end"
+                  required
+                  value={formData.front_end}
                   onChange={handleInputChange}
                   className="w-full rounded-md border border-primary-200 bg-primary-100 py-2.5 px-6 text-base font-medium text-primary-900 focus:ring focus:ring-opacity-50 disabled:opacity-50"
                 />
               </div>
               <div className="col-span-2">
                 <label
-                  htmlFor="front_strap"
+                  htmlFor="back_end"
                   className="block mb-3 text-base font-medium text-primary-300"
                 >
-                  Front Strap
+                  Back End
                 </label>
                 <input
                   type="text"
-                  name="front_strap"
-                  id="front_strap"
-                  value={formData.front_strap}
-                  onChange={handleInputChange}
-                  className="w-full rounded-md border border-primary-200 bg-primary-100 py-2.5 px-6 text-base font-medium text-primary-900 focus:ring focus:ring-opacity-50 disabled:opacity-50"
-                />
-              </div>
-
-            </div>
-            <div className="grid grid-cols-4 gap-2 mb-5 ">
-              <div className="">
-                <label
-                  htmlFor="tail"
-                  className="block mb-3 text-base font-medium text-primary-300"
-                >
-                  Tail
-                </label>
-                <input
-                  type="number"
-                  min="0"
-                  step="0.01"
-                  name="tail"
-                  id="tail"
-                  value={formData.tail}
-                  onChange={handleInputChange}
-                  className="w-full rounded-md border border-primary-200 bg-primary-100 py-2.5 px-6 text-base font-medium text-primary-900 focus:ring focus:ring-opacity-50 disabled:opacity-50"
-                />
-              </div>
-                            <div className="">
-                <label
-                  htmlFor="fin_box"
-                  className="block mb-3 text-base font-medium text-primary-300"
-                >
-                  Fin Box Type
-                </label>
-                <input
-                  type="text"
-                  name="fin_box"
-                  id="fin_box"
+                  name="back_end"
+                  id="back_end"
                   required
-                  value={formData.fin_box}
+                  value={formData.back_end}
                   onChange={handleInputChange}
                   className="w-full rounded-md border border-primary-200 bg-primary-100 py-2.5 px-6 text-base font-medium text-primary-900 focus:ring focus:ring-opacity-50 disabled:opacity-50"
                 />
               </div>
-
-              <div className="">
-                <label
-                  htmlFor="fin_size"
-                  className="block mb-3 text-base font-medium text-primary-300"
-                >
-                  Fin Size / Combo
-                </label>
-                <input
-                  type="text"
-                  name="fin_size"
-                  id="fin_size"
-                  required
-                  value={formData.fin_size}
-                  onChange={handleInputChange}
-                  className="w-full rounded-md border border-primary-200 bg-primary-100 py-2.5 px-6 text-base font-medium text-primary-900 focus:ring focus:ring-opacity-50 disabled:opacity-50"
-                />
-              </div>
-              <div className="">
-                <label
-                  htmlFor="serial_number"
-                  className="block mb-3 text-base font-medium text-primary-300"
-                >
-                  Serial Number
-                </label>
-                <input
-                  type="text"
-                  name="serial_number"
-                  id="serial_number"
-                  required
-                  value={formData.serial_number}
-                  onChange={handleInputChange}
-                  className="w-full rounded-md border border-primary-200 bg-primary-100 py-2.5 px-6 text-base font-medium text-primary-900 focus:ring focus:ring-opacity-50 disabled:opacity-50"
-                />
-              </div>
-
             </div>
             <div className="grid grid-cols-12 gap-2 mb-5 ">
               <div className="col-span-4">
@@ -457,22 +330,7 @@ console.log(formData.is_active)
                   name="image"
                   id="image"
                   required
-                  className="w-full text-base font-semibold text-primary-800 bg-primary-100 border rounded cursor-pointer file:cursor-pointer file:border-0 file:py-2.5 file:px-4 file:mr-4 file:bg-primary-100 file:hover:bg-primary-200 file:text-primary-900"
-                />
-              </div>
-              <div className="col-span-4">
-                <label
-                  htmlFor="invoice"
-                  className="block mb-3 text-base font-medium text-primary-300"
-                >
-                  Select Invoice
-                </label>
-                <input
-                  type="file"
-                  name="invoice"
-                  id="invoice"
-                  placeholder="MT"
-                  className="w-full text-base font-semibold text-primary-800 bg-primary-100 border rounded cursor-pointer file:cursor-pointer file:border-0 file:py-2.5 file:px-4 file:mr-4 file:bg-primary-100 file:hover:bg-primary-200 file:text-primary-900"
+                  className="w-full text-sm font-semibold text-primary-800 bg-primary-100 border rounded cursor-pointer file:cursor-pointer file:border-0 file:py-2.5 file:px-4 file:mr-4 file:bg-primary-100 file:hover:bg-primary-200 file:text-primary-900"
                 />
               </div>
               <div className="col-span-4">
@@ -491,9 +349,7 @@ console.log(formData.is_active)
                   className="w-full rounded-md border border-primary-200 bg-primary-100 py-2.5 px-6 text-base font-medium text-primary-900 focus:ring focus:ring-opacity-50 disabled:opacity-50"
                 />
               </div>
-            </div>
-            <div className="grid grid-cols-12 gap-2 mb-5 ">
-              <div className="col-span-3">
+              <div className="col-span-4">
                 <label
                   htmlFor="merchant"
                   className="block mb-3 text-base font-medium text-primary-300"
@@ -510,7 +366,62 @@ console.log(formData.is_active)
                   className="w-full rounded-md border border-primary-200 bg-primary-100 py-2.5 px-6 text-base font-medium text-primary-900 focus:ring focus:ring-opacity-50 disabled:opacity-50"
                 />
               </div>
-              <div className="col-span-3">
+            </div>
+            <div className="grid grid-cols-12 gap-2 mb-5 ">
+              <div className="col-span-2">
+                <label
+                  htmlFor="purchase_date"
+                  className="block mb-3 text-base font-medium text-primary-300"
+                >
+                  Purchase Date
+                </label>
+                <input
+                  type="date"
+                  name="purchase_date"
+                  id="purchase_date"
+                  required
+                  value={formData.purchase_date}
+                  onChange={handleInputChange}
+                  className="w-full rounded-md border border-primary-200 bg-primary-100 py-2.5 px-6 text-base font-medium text-primary-900 focus:ring focus:ring-opacity-50 disabled:opacity-50"
+                />
+              </div>
+              <div className="col-span-2">
+                <label
+                  htmlFor="retail_price"
+                  className="block mb-3 text-base font-medium text-primary-300"
+                >
+                  $ Retail Price
+                </label>
+                <input
+                  type="number"
+                  name="retail_price"
+                  id="retail_price"
+                  required
+                  step="0.10"
+                  value={formData.retail_price}
+                  onChange={handleInputChange}
+                  className="w-full rounded-md border border-primary-200 bg-primary-100 py-2.5 px-6 text-base font-medium text-primary-900 focus:ring focus:ring-opacity-50 disabled:opacity-50"
+                />
+              </div>
+              <div className="col-span-2">
+                <label
+                  htmlFor="paid_price"
+                  className="block mb-3 text-base font-medium text-primary-300"
+                >
+                  $ Paid Price
+                </label>
+                <input
+                  type="number"
+                  name="paid_price"
+                  step="0.10"
+                  id="paid_price"
+                  required
+                  value={formData.paid_price}
+                  onChange={handleInputChange}
+                  className="w-full rounded-md border border-primary-200 bg-primary-100 py-2.5 px-6 text-base font-medium text-primary-900 focus:ring focus:ring-opacity-50 disabled:opacity-50"
+                />
+              </div>
+              <div className="col-span-2">
                 <label
                   htmlFor="comments"
                   className="block mb-3 text-base font-medium text-primary-300"
@@ -526,63 +437,21 @@ console.log(formData.is_active)
                   className="w-full rounded-md border border-primary-200 bg-primary-100 py-2.5 px-6 text-base font-medium text-primary-900 focus:ring focus:ring-opacity-50 disabled:opacity-50"
                 />
               </div>
-              <div className="col-span-2">
+
+              <div className="col-span-4">
                 <label
-                  htmlFor="purchase_date"
+                  htmlFor="invoice"
                   className="block mb-3 text-base font-medium text-primary-300"
                 >
-                  Purchase Date
+                  Select Invoice
                 </label>
                 <input
-                  type="date"
-                  name="purchase_date"
-                  id="purchase_date"
-                  value={formData.purchase_date}
-                  onChange={handleInputChange}
-                  required
-                  className="w-full rounded-md border border-primary-200 bg-primary-100 py-2.5 px-6 text-base font-medium text-primary-900 focus:ring focus:ring-opacity-50 disabled:opacity-50"
+                  type="file"
+                  name="invoice"
+                  id="invoice"
+                  className="w-full text-sm font-semibold text-primary-800 bg-primary-100 border rounded cursor-pointer file:cursor-pointer file:border-0 file:py-2.5 file:px-4 file:mr-4 file:bg-primary-100 file:hover:bg-primary-200 file:text-primary-900"
                 />
               </div>
-              <div className="col-span-2">
-                <label
-                  htmlFor="retail_price"
-                  className="block mb-3 text-base font-medium text-primary-300"
-                >
-                  $ Retail Price
-                </label>
-                <input
-                  type="number"
-                  step="0.10"
-                  name="retail_price"
-                  id="retail_price"
-                  required
-                  value={formData.retail_price}
-                  onChange={handleInputChange}
-                  className="w-full rounded-md border border-primary-200 bg-primary-100 py-2.5 px-6 text-base font-medium text-primary-900 focus:ring focus:ring-opacity-50 disabled:opacity-50"
-                />
-              </div>
-              <div className="col-span-2">
-                <label
-                  htmlFor="paid_price"
-                  className="block mb-3 text-base font-medium text-primary-300"
-                >
-                  $ Paid Price
-                </label>
-                <input
-                  type="number"
-                  step="0.10"
-                  name="paid_price"
-                  id="paid_price"
-                  required
-                  value={formData.paid_price}
-                  onChange={handleInputChange}
-                  className="w-full rounded-md border border-primary-200 bg-primary-100 py-2.5 px-6 text-base font-medium text-primary-900 focus:ring focus:ring-opacity-50 disabled:opacity-50"
-                />
-              </div>
-            </div>
-            <div className="grid grid-cols-12 gap-2 mb-5 ">
-              <div className="col-span-2"></div>
-              <div className="col-span-2"></div>
             </div>
             <div className="grid grid-cols-12 gap-2 mb-5 ">
               <div className="col-span-2">
@@ -595,33 +464,14 @@ console.log(formData.is_active)
                 <input
                   type="date"
                   name="disposal_date"
-                  // defaultValue={"1990-01-01"}
                   id="disposal_date"
+                  defaultValue={"1990-01-01"}
                   value={formData.disposal_date}
                   onChange={handleInputChange}
                   className="w-full rounded-md border border-primary-200 bg-primary-100 py-2.5 px-6 text-base font-medium text-primary-900 focus:ring focus:ring-opacity-50 disabled:opacity-50"
                 />
               </div>
-
               <div className="col-span-2">
-                <label
-                  htmlFor="disposal_price"
-                  className="block mb-3 text-base font-medium text-primary-300"
-                >
-                  $ Disposal Revenue
-                </label>
-                <input
-                  type="number"
-                  step="0.10"
-                  name="disposal_price"
-                  defaultValue={0.0}
-                  id="disposal_price"
-                  value={formData.disposal_price}
-                  onChange={handleInputChange}
-                  className="w-full rounded-md border border-primary-200 bg-primary-100 py-2.5 px-6 text-base font-medium text-primary-900 focus:ring focus:ring-opacity-50 disabled:opacity-50"
-                />
-              </div>
-              <div className="col-span-4">
                 <label
                   htmlFor="disposal"
                   className="block mb-3 text-base font-medium text-primary-300"
@@ -637,6 +487,24 @@ console.log(formData.is_active)
                   className="w-full rounded-md border border-primary-200 bg-primary-100 py-2.5 px-6 text-base font-medium text-primary-900 focus:ring focus:ring-opacity-50 disabled:opacity-50"
                 />
               </div>
+              <div className="col-span-2">
+                <label
+                  htmlFor="disposal_price"
+                  className="block mb-3 text-base font-medium text-primary-300"
+                >
+                  $ Disposal Revenue
+                </label>
+                <input
+                  type="number"
+                  name="disposal_price"
+                  id="disposal_price"
+                  step="0.10"
+                  value={formData.disposal_price}
+                  onChange={handleInputChange}
+                  className="w-full rounded-md border border-primary-200 bg-primary-100 py-2.5 px-6 text-base font-medium text-primary-900 focus:ring focus:ring-opacity-50 disabled:opacity-50"
+                />
+              </div>
+              <div className="col-span-2"></div>
               <div className="col-span-2">
                 <label
                   htmlFor="is_active"
@@ -659,7 +527,6 @@ console.log(formData.is_active)
                   </option>
                 </select>
               </div>
-              {/* <div className="col-span-2"></div> */}
             </div>
 
             <div className="flex justify-end">
@@ -667,21 +534,21 @@ console.log(formData.is_active)
                 type="submit"
                 className="px-8 py-4 font-semibold transition-all rounded-md bg-primary-700 text-primary-100 hover:bg-gray-500 disabled:cursor-not-allowed disabled:bg-gray-500 disabled:text-gray-300"
               >
-                {edit ? "Update Board" : "Add Board"}
+                {edit ? "Edit Boom" : "Add Boom"}
               </button>
             </div>
           </form>
         </div>
       </div>
       {edit && imageUrls.length > 0 && (
-        <div className="flex flex-row justify-between p-6 px-12 py-8 max-h-96 bg-primary-800">
+        <div className="flex flex-row justify-between px-6 py-8 max-h-96 bg-primary-800">
           <Image
             src={imageUrls[0]} // Use the first image URL
             alt="Sail Image"
             height={0}
             width={0}
             sizes="100vw"
-            className="w-1/3 h-auto rounded-t-xl"
+            className="w-4/6 h-auto rounded-t-xl"
           />
           <Image
             src={invoiceUrls[0]}
@@ -689,7 +556,7 @@ console.log(formData.is_active)
             height={0}
             width={0}
             sizes="100vw"
-            className="w-1/2 h-auto rounded-t-xl"
+            className="w-1/6 h-auto rounded-t-xl"
           />
         </div>
       )}
@@ -697,4 +564,4 @@ console.log(formData.is_active)
   );
 };
 
-export default BoardsForm;
+export default BoomForm;

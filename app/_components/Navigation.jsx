@@ -44,6 +44,11 @@ export default async function Navigation() {
             Masts
           </Link>
         </li>
+        <li>
+          <Link href="/booms" className="transition-colors hover:bg-stone-600">
+            Booms
+          </Link>
+        </li>
         {/* <li>
           <Link href="/reports" className="transition-colors hover:bg-stone-600">
             Booms

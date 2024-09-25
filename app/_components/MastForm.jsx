@@ -96,12 +96,12 @@ const MastForm = ({ equipment, edit }) => {
       <div className="flex items-center justify-center py-3">
         <div className="w-full mx-auto bg-primary-800">
         <div className="px-8 pt-6 pb-4 border-b-4 border-primary-700 ">
-            <h1 className="text-6xl font-semibold text-primary-500">
+            <h1 className="text-4xl font-semibold text-primary-500">
               {edit ? "Edit Mast" : "Add New Mast"}
             </h1>
           </div>
           <form className="px-8 pb-6" action={edit ? editMast : addMast}>
-            <div className="grid grid-cols-12 gap-2 mb-5 pt-4">
+            <div className="grid grid-cols-12 gap-2 pt-4 mb-5">
               <div>
                 <label
                   htmlFor="selcode"
@@ -488,7 +488,7 @@ const MastForm = ({ equipment, edit }) => {
         </div>
       </div>
       {edit && imageUrls.length > 0 && (
-        <div className="flex flex-row max-h-96 justify-between px-6 py-8 bg-primary-800">
+        <div className="flex flex-row justify-between px-6 py-8 max-h-96 bg-primary-800">
           <Image
             src={imageUrls[0]} // Use the first image URL
             alt="Sail Image"

@@ -34,15 +34,15 @@ export default function NavDropDown() {
 
   return (
     <nav className="text-xl text-primary-100">
-      <div className="container mx-auto px-4 md:flex items-center gap-6">
+      <div className="container items-center gap-6 px-4 mx-auto md:flex">
         {/* Logo */}
-        <div className="flex items-center justify-between md:w-auto w-full">
-          {/* <Link href="/" className="py-5 px-2 text-white flex-1 font-bold">
+        <div className="flex items-center justify-between w-full md:w-auto">
+          {/* <Link href="/" className="flex-1 px-2 py-5 font-bold text-white">
             Webcrunch.com
           </Link> */}
 
           {/* Mobile menu icon */}
-          <div className="md:hidden flex items-center">
+          <div className="flex items-center md:hidden">
             <button
               type="button"
               className="mobile-menu-button"
@@ -72,7 +72,7 @@ export default function NavDropDown() {
             menuOpen ? "flex" : "hidden"
           } md:flex md:flex-row flex-col items-center justify-start md:space-x-1 pb-3 md:pb-0 navigation-menu`}
         >
-          {/* <Link href="/" className="py-2 px-3 block">
+          {/* <Link href="/" className="block px-3 py-2">
             Home
           </Link> */}
           
@@ -81,7 +81,7 @@ export default function NavDropDown() {
           <div className="relative" ref={dropdownRef}>
             <button
               type="button"
-              className="dropdown-toggle py-2 px-3 hover:bg-primary-700 flex items-center gap-2 rounded"
+              className="flex items-center gap-2 px-3 py-2 rounded dropdown-toggle hover:bg-primary-700"
               onClick={toggleDropdown}
             >
               <span className="pointer-events-none select-none">Equipment</span>
@@ -107,37 +107,44 @@ export default function NavDropDown() {
             >
               <Link
                 href="/sails"
-                className="block px-6 py-2 hover:bg-stone-600"
+                className="block px-6 py-2 hover:bg-primary-900"
                 onClick={closeDropdown}
               >
                 Sails
               </Link>
               <Link
                 href="/boards"
-                className="block px-6 py-2 hover:bg-stone-600"
+                className="block px-6 py-2 hover:bg-primary-900"
                 onClick={closeDropdown}
               >
                 Boards
               </Link>
               <Link
                 href="/masts"
-                className="block px-6 py-2 hover:bg-stone-600"
+                className="block px-6 py-2 hover:bg-primary-900"
                 onClick={closeDropdown}
               >
                 Masts
               </Link>
+              <Link
+                href="/booms"
+                className="block px-6 py-2 hover:bg-primary-900"
+                onClick={closeDropdown}
+              >
+                Booms
+              </Link>
               {/* <Link
                 href="/services/seo"
-                className="block px-6 py-2 hover:bg-stone-600"
+                className="block px-6 py-2 hover:bg-primary-900"
               >
                 SEO
               </Link> */}
             </div>
           </div>
-          {/* <Link href="/about" className="py-2 px-3 block">
+          {/* <Link href="/about" className="block px-3 py-2">
             About
           </Link>
-          <Link href="/contact" className="py-2 px-3 block">
+          <Link href="/contact" className="block px-3 py-2">
             Contact
           </Link> */}
         </div>

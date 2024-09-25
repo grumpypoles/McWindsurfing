@@ -10,7 +10,7 @@ export const metadata = {
 };
 
 const Page = async ({ searchParams }) => {
-  const filter = searchParams?.status ?? "all";
+  const filter = searchParams?.status ?? "active";
 
   return (
     <div className="flex flex-col">

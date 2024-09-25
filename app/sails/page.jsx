@@ -12,7 +12,7 @@ export const metadata = {
 const Page = async ({ searchParams}) => {
  
 
-  const filter = searchParams?.status ?? "all";
+  const filter = searchParams?.status ?? "active";
 
   return (
     <div className="flex flex-col">
@@ -43,7 +43,7 @@ const Page = async ({ searchParams}) => {
             href={`/sails/add`}
             className="flex text-2xl font-semibold items-centermb-4 text-primary-300"
           >
-            <span className="flex flex-row justify-end w-full text-xl font-medium gap-x-2 mt-2">
+            <span className="flex flex-row justify-end w-full mt-2 text-xl font-medium gap-x-2">
               Add
               <ArrowRightIcon className="w-6 h-6 mr-2" />
             </span>

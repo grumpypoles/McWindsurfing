@@ -7,7 +7,7 @@ const EquipmentHeader = ( {type, eqData} ) => {
     const arg4 = eqData[0].make
     let arg5 
 
-    if (type === 'Mast') {
+    if (type === 'Mast' || 'Boom') {
        arg5 =  eqData[0].length
     } else {
         arg5 =  eqData[0].size
@@ -16,7 +16,7 @@ const EquipmentHeader = ( {type, eqData} ) => {
 
 
     return (  
-        <div className="text-2xl font-bold w-full px-5 py-3 rounded-sm shadow-sm bg-primary-200 text-primary-800 disabled:cursor-not-allowed disabled:bg-gray-600 disabled:text-gray-400">
+        <div className="w-full px-5 py-3 text-2xl font-bold rounded-sm shadow-sm bg-primary-200 text-primary-800 disabled:cursor-not-allowed disabled:bg-gray-600 disabled:text-gray-400">
 
         <h1>{type}: {arg1} {arg2} {arg3} {arg4} {arg5}</h1>
         </div>

@@ -1,9 +1,4 @@
 import { auth } from "@/app/_lib/auth";
-import { Suspense } from "react";
-import Spinner from "@/app/_components/Spinner";
-import WindDirectionList from "@/app/_components/WindDirectionList";
-import SwellList from "@/app/_components/SwellList";
-import SportList from "@/app/_components/SportList";
 
 export const metadata = {
   title: "Account",

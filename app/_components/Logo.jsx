@@ -13,7 +13,7 @@ function Logo() {
         width="60"
         alt="McActive logo"
       />
-      <span className="text-xl font-semibold transition-colors text-primary-100 hover:bg-stone-400" >McWindsurf</span>
+      <span className="px-3 py-2 text-xl font-semibold transition-colors text-primary-100 hover:bg-primary-700" >McWindsurf</span>
     </Link>
   );
 }

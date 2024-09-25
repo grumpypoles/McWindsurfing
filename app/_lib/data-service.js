@@ -65,6 +65,24 @@ export async function getBoards(id) {
 }
 
 
+/** Get boards info data */
+export async function getBooms(id) {
+  const { data, error } = await supabase
+    .from("ws_booms_info")
+    .select("*")
+    // .range(0, 5)
+    .eq("app_user_id", id)
+    .order("id", { ascending: false });
+
+  if (error) {
+    console.error(error);
+    notFound();
+  }
+
+  return data;
+}
+
+
 
 /** Get  ws_categories data */
 export async function getCategories() {

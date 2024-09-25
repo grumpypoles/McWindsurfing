@@ -30,7 +30,7 @@ export default function RootLayout({ children }) {
         <div className="grid flex-1 px-8 py-12">
           <main className="w-full mx-auto max-w-7xl">{children}</main>
         </div>
-        <Toaster
+        {/* <Toaster
           position="top-center"
           gutter={12}
           containerStyle={{ margin: "8px" }}
@@ -43,7 +43,7 @@ export default function RootLayout({ children }) {
               padding: "16px 24px",
             },
           }}
-        />
+        /> */}
       </body>
     </html>
   );
