@@ -5,8 +5,8 @@ import { auth } from "@/app/_lib/auth";
 import { supabase } from "@/app/_lib/supabase";
 import cloudinary from "@/app/_lib/cloudinary";
 
-//Add new board
-export async function addBoom(formData) {
+//Add new sundry
+export async function addSundry(formData) {
   const session = await auth();
   if (!session) throw new Error("You must be logged in");
 
@@ -58,38 +58,23 @@ export async function addBoom(formData) {
     invoiceUrls.push(resultInvoice.secure_url);
   }
 
-   // Technical Data
-
-   const selcode = formData.get("selcode");
-   const year = formData.get("year");
-   const make = formData.get("make");
-   const model = formData.get("model");
-   const length = formData.get("length");
-   const adj_length = formData.get("adj_length");
-   const adj_type = formData.get("adj_type");
-   const weight = formData.get("weight")
-   const diameter = formData.get("diameter");
-   const body = formData.get("body");
-   const front_end = formData.get("front_end");
-   const back_end = formData.get("back_end");
-   const image = imageUrls;
-   const web_url = formData.get("web_url");
-   const is_active = formData.get("is_active");
-   const app_user_id = session.user.appUserId;
+  // Technical Data
+  const selcode = formData.get("selcode");
+  const year = formData.get("year");
+  const make = formData.get("make");
+  const model = formData.get("model");
+  const type = formData.get("type");
+  const image = imageUrls;
+  const web_url = formData.get("web_url");
+  const is_active = formData.get("is_active");
+  const app_user_id = session.user.appUserId;
 
   const technicalData = {
     selcode,
-    year,
-    make,
+    type,
     model,
-    length,
-    adj_length,
-    adj_type,
-    weight,
-    diameter,
-    body,
-    front_end,
-    back_end,
+    make,
+    year,
     image,
     web_url,
     is_active,
@@ -121,27 +106,26 @@ export async function addBoom(formData) {
     disposal_price,
   };
 
-
-
   const { data: technicalDataInput, error: technicalError } = await supabase
-    .from("ws_booms")
+    .from("ws_sundry")
     .insert(technicalData);
 
   if (technicalError)
-    throw new Error("Booms technical data could not be updated");
+    throw new Error("Mast technical data could not be updated");
 
   const { data: FinancialDataInput, error: financialError } = await supabase
     .from("ws_costs")
     .insert(financialData);
 
   if (financialError)
-    throw new Error("Booms financial data could not be updated");
+    throw new Error("Mast financial data could not be updated");
 
-  revalidatePath("/booms");
+  revalidatePath("/sundry");
 }
 
-//Edit existing board
-export async function editBoom(formData) {
+
+//Edit existing sundry
+export async function editSundry(formData) {
   const session = await auth();
   if (!session) throw new Error("You must be logged in");
 
@@ -190,45 +174,31 @@ export async function editBoom(formData) {
       }
     );
 
-     invoiceUrls.push(resultInvoice.secure_url);
+    invoiceUrls.push(resultInvoice.secure_url);
   }
 
- // Technical Data
-
- const selcode = formData.get("selcode");
- const year = formData.get("year");
- const make = formData.get("make");
- const model = formData.get("model");
- const length = formData.get("length");
- const adj_length = formData.get("adj_length");
- const adj_type = formData.get("adj_type");
- const weight = formData.get("weight")
- const diameter = formData.get("diameter");
- const body = formData.get("body");
- const front_end = formData.get("front_end");
- const back_end = formData.get("back_end");
- const image = imageUrls;
- const web_url = formData.get("web_url");
- const is_active = formData.get("is_active");
- const app_user_id = session.user.appUserId;
+  // Technical Data
+  const selcode = formData.get("selcode");
+  const year = formData.get("year");
+  const make = formData.get("make");
+  const model = formData.get("model");
+  const type = formData.get("type");
+  const carbon = formData.get("carbon");
+  const image = imageUrls;
+  const web_url = formData.get("web_url");
+  const is_active = formData.get("is_active");
+  const app_user_id = session.user.appUserId;
 
   const technicalData = {
-    // selcode,
-    year,
-    make,
+    selcode,
+    type,
     model,
-    length,
-    adj_length,
-    adj_type,
-    weight,
-    diameter,
-    body,
-    front_end,
-    back_end,
+    make,
+    year,
     image,
     web_url,
     is_active,
-    // app_user_id,
+    app_user_id,
   };
 
   // Financial Data
@@ -244,7 +214,7 @@ export async function editBoom(formData) {
   const disposal_price = formData.get("disposal_price");
 
   const financialData = {
-    // selcode,
+    selcode,
     purchase_date,
     merchant,
     retail_price,
@@ -256,29 +226,30 @@ export async function editBoom(formData) {
     disposal_price,
   };
 
-  const { data: technicalDataEdit, error: technicalError } = await supabase
-    .from("ws_booms")
+  const { data: technicalDataInput, error: technicalError } = await supabase
+    .from("ws_sundry")
     .update(technicalData)
     .eq("selcode", selcode);
 
   if (technicalError)
-    throw new Error("Booms technical data could not be updated");
+    throw new Error("Mast technical data could not be updated");
 
-  const { data: FinancialDataEdit, error: financialError } = await supabase
+  const { data: FinancialDataInput, error: financialError } = await supabase
     .from("ws_costs")
     .update(financialData)
     .eq("selcode", selcode);
 
   if (financialError)
-    throw new Error("Booms financial data could not be updated");
+    throw new Error("Mast financial data could not be updated");
 
-  revalidatePath("/booms");
+  revalidatePath("/sundry");
 }
 
+
 //Get all data for specific board
-export async function getBoom(id) {
+export async function getSundry(id) {
   const { data, error } = await supabase
-    .from("ws_booms_info")
+    .from("ws_sundry_info")
     .select("*")
     .eq("id", id);
 
@@ -289,3 +260,7 @@ export async function getBoom(id) {
 
   return data;
 }
+
+
+
+

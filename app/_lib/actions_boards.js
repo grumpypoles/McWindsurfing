@@ -133,7 +133,7 @@ export async function addBoard(formData) {
     disposal_price,
   };
 
-  console.log(technicalData);
+ 
 
   const { data: technicalDataInput, error: technicalError } = await supabase
     .from("ws_boards")

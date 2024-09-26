@@ -118,10 +118,6 @@ const SideNavigation = () => {
           )}
         </li>
       ))}
-
-      <li className="mt-auto mb-16">
-        <SignOutButton />
-      </li>
     </ul>
   );
 };

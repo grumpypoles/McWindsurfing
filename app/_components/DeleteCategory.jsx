@@ -11,7 +11,7 @@ function DeleteCategory({ rowId, onDelete }) {
   function handleDelete() {
     if (confirm("Are you sure you want to delete this record?"))
       startTransition(() => deleteCategory(rowId));
-    console.log(rowId)
+    
   }
 
   return (

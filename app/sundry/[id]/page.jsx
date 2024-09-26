@@ -6,20 +6,19 @@ import Link from "next/link";
 import { ArrowLongLeftIcon } from "@heroicons/react/24/solid";
 import { Suspense } from "react";
 import Spinner from "@/app/_components/Spinner";
-import { getBoom } from "@/app/_lib/actions_booms";
-import BoomDashboard from "@/app/_components/BoomDashboard";
+import { getSundry } from "@/app/_lib/actions_sundry";
+import SundryDashboard from "@/app/_components/SundryDashboard";
 
 const Page = (params) => {
   const { id } = useParams();
   const [equipmentData, setEquipmentData] = useState(null);
   const [loading, setLoading] = useState(true);
 
-
   useEffect(() => {
     const fetchEquipmentData = async () => {
       if (!id) return;
       try {
-        const equipmentData = await getBoom(id);
+        const equipmentData = await getSundry(id);
         setEquipmentData(equipmentData);
       } catch (error) {
         console.error("Error fetching equipment technical Data:", error);
@@ -49,16 +48,16 @@ const Page = (params) => {
         <>
           <Suspense fallback={<Spinner />}>
             <Link
-              href="/booms"
+              href="/sundry"
               className="flex items-centermb-4 text-2xl font-semibold text-primary-300"
             >
               {" "}
               <span className="flex flex-row items-center gap-x-2 w-full text-xl font-medium">
-                <ArrowLongLeftIcon className="mr-2 h-6 w-6" /> Back to Booms
+                <ArrowLongLeftIcon className="mr-2 h-6 w-6" /> Back to Sundry
               </span>
             </Link>
 
-            <BoomDashboard equipmentData={equipmentData} />
+            <SundryDashboard equipmentData={equipmentData} />
           </Suspense>
           
         </>

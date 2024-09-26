@@ -3,11 +3,6 @@
 import { revalidatePath } from "next/cache";
 import { auth, signIn, signOut } from "@/app/_lib/auth";
 import { supabase } from "./supabase";
-import { addDays, format } from 'date-fns';
-import {
-  calculateBMI, calculateW2hight,
-  calculateW2hip
-} from "@/app/_lib/helpers";
 
 //Profile Functions
 export async function updateProfile(formData) {

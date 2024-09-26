@@ -78,8 +78,7 @@ export async function getRecreationsStatistics(id) {
   .eq("app_user_id", id);
 
   // const allRows = data.length;
-  // console.log(allRows);
-
+ 
   
   // //For Testing
   // await new Promise((res)=> setTimeout(res, 3000))

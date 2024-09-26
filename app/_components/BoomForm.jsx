@@ -19,7 +19,7 @@ const BoomForm = ({ equipment, edit }) => {
     if (edit) {
       const invoiceImageUrls = equipment[0]?.invoice || "[]";
       setInvoiceUrls(invoiceImageUrls); // Update state with image URLs
-      console.log(setInvoiceUrls);
+      
     }
   }, [edit, equipment]);
 
@@ -541,7 +541,7 @@ const BoomForm = ({ equipment, edit }) => {
         </div>
       </div>
       {edit && imageUrls.length > 0 && (
-        <div className="flex flex-row justify-between px-6 py-8 max-h-96 bg-primary-800">
+        <div className="flex flex-row justify-center space-x-7 px-6 py-8 max-h-96 bg-primary-800">
           <Image
             src={imageUrls[0]} // Use the first image URL
             alt="Sail Image"

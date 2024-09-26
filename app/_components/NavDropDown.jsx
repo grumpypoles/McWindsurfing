@@ -3,12 +3,10 @@
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 
-
 export default function NavDropDown() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
-  
   const dropdownRef = useRef(null);
 
   const toggleDropdown = () => {
@@ -26,9 +24,9 @@ export default function NavDropDown() {
         closeDropdown();
       }
     };
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
 
@@ -75,7 +73,6 @@ export default function NavDropDown() {
           {/* <Link href="/" className="block px-3 py-2">
             Home
           </Link> */}
-          
 
           {/* Dropdown menu */}
           <div className="relative" ref={dropdownRef}>
@@ -133,22 +130,15 @@ export default function NavDropDown() {
               >
                 Booms
               </Link>
-              {/* <Link
-                href="/services/seo"
+              <Link
+                href="/sundry"
                 className="block px-6 py-2 hover:bg-primary-900"
               >
-                SEO
-              </Link> */}
+                Sundry
+              </Link>
             </div>
           </div>
-          {/* <Link href="/about" className="block px-3 py-2">
-            About
-          </Link>
-          <Link href="/contact" className="block px-3 py-2">
-            Contact
-          </Link> */}
         </div>
-       
       </div>
     </nav>
   );

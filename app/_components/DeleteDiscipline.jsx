@@ -11,7 +11,7 @@ function DeleteDiscipline({ rowId, onDelete }) {
   function handleDelete() {
     if (confirm("Are you sure you want to delete this record?"))
       startTransition(() => deleteDiscipline(rowId));
-    console.log(rowId)
+    
   }
 
   return (

@@ -85,12 +85,20 @@ const EquipmentTechnical = ({ type, eqData }) => {
               </span>
             </li>
           )}
-          
+          {type !== "Sundry" && (
           <li>
             <span className="flex flex-row items-center w-full text-xl font-medium gap-x-2">
               <KeyIcon className="w-6 h-6" /> Weight: {eqData[0].weight}
             </span>
           </li>
+        )}
+          {type === "Sundry" && (
+          <li>
+            <span className="flex flex-row items-center w-full text-xl font-medium gap-x-2">
+              <KeyIcon className="w-6 h-6" /> Model: {eqData[0].model}
+            </span>
+          </li>
+        )}
           {type === "Board" && (
             <li>
               <span className="flex flex-row items-center w-full text-lg font-medium gap-x-2">

@@ -21,7 +21,7 @@ const BoardsForm = ({ equipment, edit }) => {
     if (edit) {
       const invoiceImageUrls = equipment[0]?.invoice || "[]";
       setInvoiceUrls(invoiceImageUrls); // Update state with image URLs
-      console.log(setInvoiceUrls);
+      
     }
   }, [edit, equipment]);
 
@@ -100,7 +100,7 @@ const BoardsForm = ({ equipment, edit }) => {
       });
     }
   }, [edit, equipment]);
-console.log(formData.is_active)
+
   // Handle form input change
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -674,14 +674,14 @@ console.log(formData.is_active)
         </div>
       </div>
       {edit && imageUrls.length > 0 && (
-        <div className="flex flex-row justify-between p-6 px-12 py-8 max-h-96 bg-primary-800">
+        <div className="flex flex-row justify-center space-x-7 p-6 px-12 py-8 max-h-96 bg-primary-800">
           <Image
             src={imageUrls[0]} // Use the first image URL
             alt="Sail Image"
             height={0}
             width={0}
             sizes="100vw"
-            className="w-1/3 h-auto rounded-t-xl"
+            className="w-2/6 h-auto rounded-t-xl"
           />
           <Image
             src={invoiceUrls[0]}
@@ -689,7 +689,7 @@ console.log(formData.is_active)
             height={0}
             width={0}
             sizes="100vw"
-            className="w-1/2 h-auto rounded-t-xl"
+            className="w-1/6 h-auto rounded-t-xl"
           />
         </div>
       )}

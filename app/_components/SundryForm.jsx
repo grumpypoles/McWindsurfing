@@ -3,8 +3,9 @@ import { useState, useEffect } from "react";
 import { addMast } from "@/app/_lib/actions_masts";
 import { editMast } from "@/app/_lib/actions_masts";
 import Image from "next/image";
+import { addSundry, editSundry } from "@/app/_lib/actions_sundry";
 
-const MastForm = ({ equipment, edit }) => {
+const SundryForm = ({ equipment, edit }) => {
   const [imageUrls, setImageUrls] = useState([]);
   const [invoiceUrls, setInvoiceUrls] = useState([]);
 
@@ -26,16 +27,11 @@ const MastForm = ({ equipment, edit }) => {
 
   // State for form data
   const [formData, setFormData] = useState({
-    selcode: "MTxx",
+    selcode: "OTxx",
     type: "",
     model: "",
     make: "",
     year: "",
-    length: "",
-    imcs: "",
-    weight: "",
-    carbon: "",
-    // image: "",
     web_url: "",
     is_active: "",
     app_user_id: "",
@@ -60,11 +56,6 @@ const MastForm = ({ equipment, edit }) => {
         model: equipment[0].model || "",
         make: equipment[0].make || "",
         year: equipment[0].year || "",
-        length: equipment[0].length || "",
-        imcs: equipment[0].imcs || "",
-        weight: equipment[0].weight || "",
-        carbon: equipment[0].carbon || "",
-        // image: equipment[0].image || "",
         web_url: equipment[0].web_url || "",
         is_active: equipment[0].is_active || "",
         app_user_id: equipment[0].app_user_id || "",
@@ -97,11 +88,11 @@ const MastForm = ({ equipment, edit }) => {
         <div className="w-full mx-auto bg-primary-800">
         <div className="px-8 pt-6 pb-4 border-b-4 border-primary-700 ">
             <h1 className="text-4xl font-semibold text-primary-500">
-              {edit ? "Edit Mast" : "Add New Mast"}
+              {edit ? "Edit Sundry" : "Add New Sundry"}
             </h1>
           </div>
-          <form className="px-8 pb-6" action={edit ? editMast : addMast}>
-            <div className="grid grid-cols-12 gap-2 pt-4 mb-5">
+          <form className="px-8 pb-6" action={edit ? editSundry : addSundry}>
+            <div className="grid grid-cols-8 gap-2 pt-4 mb-5">
               <div>
                 <label
                   htmlFor="selcode"
@@ -133,6 +124,22 @@ const MastForm = ({ equipment, edit }) => {
                   id="year"
                   required
                   value={formData.year}
+                  onChange={handleInputChange}
+                  className="w-full rounded-md border border-primary-200 bg-primary-100 py-2.5 px-6 text-base font-medium text-primary-900 focus:ring focus:ring-opacity-50 disabled:opacity-50"
+                />
+              </div>
+              <div className="col-span-2">
+                <label
+                  htmlFor="type"
+                  className="block mb-3 text-base font-medium text-primary-300"
+                >
+                  Category
+                </label>
+                <input
+                  type="text"
+                  name="type"
+                  id="type"
+                  value={formData.type}
                   onChange={handleInputChange}
                   className="w-full rounded-md border border-primary-200 bg-primary-100 py-2.5 px-6 text-base font-medium text-primary-900 focus:ring focus:ring-opacity-50 disabled:opacity-50"
                 />
@@ -171,99 +178,7 @@ const MastForm = ({ equipment, edit }) => {
                 />
               </div>
 
-              <div className="col-span-2">
-                <label
-                  htmlFor="type"
-                  className="block mb-3 text-base font-medium text-primary-300"
-                >
-                  Type
-                </label>
-                <select
-                  id="type"
-                  name="type"
-                  required
-                  value={formData.type}
-                  onChange={handleInputChange}
-                  className="w-full px-6 py-3 text-base font-medium border rounded-md border-primary-200 bg-primary-100 text-primary-900 focus:ring focus:ring-opacity-50 disabled:opacity-50"
-                >
-                  <option value="RDM" className="text-centre">
-                    RDM
-                  </option>
-                  <option value="SDM" className="text-left">
-                    SDM
-                  </option>
-                </select>
-              </div>
-              <div>
-                <label
-                  htmlFor="length"
-                  className="block mb-3 text-base font-medium text-primary-300"
-                >
-                  Length
-                </label>
-                <input
-                  type="number"
-                  name="length"
-                  id="length"
-                  required
-                  value={formData.length}
-                  onChange={handleInputChange}
-                  className="w-full rounded-md border border-primary-200 bg-primary-100 py-2.5 px-6 text-base font-medium text-primary-900 focus:ring focus:ring-opacity-50 disabled:opacity-50"
-                />
-              </div>
-              <div>
-                <label
-                  htmlFor="weight"
-                  className="block mb-3 text-base font-medium text-primary-300"
-                >
-                  Weight
-                </label>
-                <input
-                  type="number"
-                  step="0.01"
-                  name="weight"
-                  id="weight"
-                  required
-                  value={formData.weight}
-                  onChange={handleInputChange}
-                  className="w-full rounded-md border border-primary-200 bg-primary-100 py-2.5 px-6 text-base font-medium text-primary-900 focus:ring focus:ring-opacity-50 disabled:opacity-50"
-                />
-              </div>
-              <div>
-                <label
-                  htmlFor="imcs"
-                  className="block mb-3 text-base font-medium text-primary-300"
-                >
-                  IMCS
-                </label>
-                <input
-                  type="number"
-                  name="imcs"
-                  id="imcs"
-                  required
-                  value={formData.imcs}
-                  onChange={handleInputChange}
-                  className="w-full rounded-md border border-primary-200 bg-primary-100 py-2.5 px-6 text-base font-medium text-primary-900 focus:ring focus:ring-opacity-50 disabled:opacity-50"
-                />
-              </div>
-              <div>
-                <label
-                  htmlFor="carbon"
-                  className="block mb-3 text-base font-medium text-primary-300"
-                >
-                  Carbon %
-                </label>
-                <input
-                  type="number"
-                  name="carbon"
-                  id="carbon"
-                  required
-                  value={formData.carbon}
-                  onChange={handleInputChange}
-                  className="w-full rounded-md border border-primary-200 bg-primary-100 py-2.5 px-6 text-base font-medium text-primary-900 focus:ring focus:ring-opacity-50 disabled:opacity-50"
-                />
-              </div>
-            </div>
+             </div>
             <div className="grid grid-cols-12 gap-2 mb-5 ">
               <div className="col-span-4">
                 <label
@@ -481,7 +396,7 @@ const MastForm = ({ equipment, edit }) => {
                 type="submit"
                 className="px-8 py-4 font-semibold transition-all rounded-md bg-primary-700 text-primary-100 hover:bg-gray-500 disabled:cursor-not-allowed disabled:bg-gray-500 disabled:text-gray-300"
               >
-                {edit ? "Edit Mast" : "Add Mast"}
+                {edit ? "Edit Sundry" : "Add Sundry"}
               </button>
             </div>
           </form>
@@ -491,15 +406,15 @@ const MastForm = ({ equipment, edit }) => {
         <div className="flex flex-row justify-center space-x-7 px-6 py-8 max-h-96 bg-primary-800">
           <Image
             src={imageUrls[0]} // Use the first image URL
-            alt="Sail Image"
+            alt="Sundry Image"
             height={0}
             width={0}
             sizes="100vw"
-            className="w-4/6 h-auto rounded-t-xl"
+            className="w-1/6 h-auto rounded-t-xl"
           />
           <Image
             src={invoiceUrls[0]}
-            alt=""
+            alt="Invoice Image"
             height={0}
             width={0}
             sizes="100vw"
@@ -511,4 +426,4 @@ const MastForm = ({ equipment, edit }) => {
   );
 };
 
-export default MastForm;
+export default SundryForm;

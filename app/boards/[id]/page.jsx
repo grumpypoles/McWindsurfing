@@ -13,7 +13,7 @@ const Page = (params) => {
   const { id } = useParams();
   const [equipmentData, setEquipmentData] = useState(null);
   const [loading, setLoading] = useState(true);
-  console.log(params);
+
 
   useEffect(() => {
     const fetchEquipmentData = async () => {

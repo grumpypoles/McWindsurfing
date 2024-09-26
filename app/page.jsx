@@ -16,7 +16,7 @@ export default function Page() {
         alt="Wild ocean waves in black and white"
       />
 
-      <div className="relative z-10 text-center">
+      <div className="relative text-center">
         <h1 className="mb-10 font-normal tracking-tight text-9xl text-primary-300">
         Windsurfing
         </h1>

@@ -125,7 +125,7 @@ export async function addSail(formData) {
     disposal_price,
   };
 
-  console.log(technicalData)
+
 
   const { data: technicalDataInput, error: technicalError } = await supabase
     .from("ws_sails")
@@ -285,7 +285,7 @@ export async function editSail(formData) {
     disposal_price,
   };
 
-  console.log(technicalData)
+ 
 
   const { data: technicalDataEdit, error: technicalError } = await supabase
     .from("ws_sails")

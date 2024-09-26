@@ -1,10 +1,5 @@
 import { supabase } from "./supabase";
 import { notFound } from "next/navigation";
-import {
-  calculateBMI,
-  calculateW2hight,
-  calculateW2hip,
-} from "@/app/_lib/helpers";
 
 // //For Testing
 // await new Promise((res)=> setTimeout(res, 3000))
@@ -73,6 +68,24 @@ export async function getBooms(id) {
     // .range(0, 5)
     .eq("app_user_id", id)
     .order("id", { ascending: false });
+
+  if (error) {
+    console.error(error);
+    notFound();
+  }
+
+  return data;
+}
+
+
+/** Get boards info data */
+export async function getSundries(id) {
+  const { data, error } = await supabase
+    .from("ws_sundry_info")
+    .select("*")
+    // .range(0, 5)
+    .eq("app_user_id", id)
+    .order("type", { ascending: false });
 
   if (error) {
     console.error(error);

@@ -11,7 +11,7 @@ function DeleteSwell({ rowId, onDelete }) {
   function handleDelete() {
     if (confirm("Are you sure you want to delete this record?"))
       startTransition(() => deleteSwell(rowId));
-    console.log(rowId)
+    
   }
 
   return (

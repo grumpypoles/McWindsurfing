@@ -11,7 +11,7 @@ function DeleteWindPower({ rowId, onDelete }) {
   function handleDelete() {
     if (confirm("Are you sure you want to delete this record?"))
       startTransition(() => deleteWindPower(rowId));
-    console.log(rowId)
+ 
   }
 
   return (
