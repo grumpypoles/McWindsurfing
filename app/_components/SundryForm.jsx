@@ -1,7 +1,5 @@
 import { useState, useEffect } from "react";
 
-import { addMast } from "@/app/_lib/actions_masts";
-import { editMast } from "@/app/_lib/actions_masts";
 import Image from "next/image";
 import { addSundry, editSundry } from "@/app/_lib/actions_sundry";
 
@@ -403,7 +401,7 @@ const SundryForm = ({ equipment, edit }) => {
         </div>
       </div>
       {edit && imageUrls.length > 0 && (
-        <div className="flex flex-row justify-center space-x-7 px-6 py-8 max-h-96 bg-primary-800">
+        <div className="flex flex-row justify-center px-6 py-8 space-x-7 max-h-96 bg-primary-800">
           <Image
             src={imageUrls[0]} // Use the first image URL
             alt="Sundry Image"

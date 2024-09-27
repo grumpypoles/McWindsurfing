@@ -617,3 +617,64 @@ export async function deleteSport(rowId) {
 
   revalidatePath("/account");
 }
+
+
+/** Functions linked to ws_locations */
+
+export async function duplicateLocation(copiedRow) {
+  const session = await auth();
+  if (!session) throw new Error("You must be logged in");
+
+  let mySpot = copiedRow.spot;
+  const selcode = "XX";
+  const description = "Copied Row";
+
+  const updateData = {
+       description,
+  };
+
+  const { data, error } = await supabase
+    .from("ws_locations")
+    .insert(updateData);
+
+  if (error) throw new Error("WS Categories could not be copied");
+
+  revalidatePath("/locations");
+}
+
+export async function updateLocation(params) {
+  const session = await auth();
+  if (!session) throw new Error("You must be logged in");
+
+  const id = params.id;
+  const selcode = params.selcode;
+  const description = params.description;
+
+  const updateData = {
+    selcode,
+    description,
+  };
+
+  const { data, error } = await supabase
+    .from("ws_categories")
+    .update(updateData)
+    .eq("id", id);
+
+  if (error) throw new Error("WS Category data could not be updated");
+
+  revalidatePath("/locations");
+}
+
+export async function deleteLocation(rowId) {
+  const session = await auth();
+  if (!session) throw new Error("You must be logged in");
+
+  const { error } = await supabase
+    .from("ws_locations")
+    .delete()
+    .eq("id", rowId);
+
+  if (error) throw new Error("WS Category record could not be deleted");
+
+  revalidatePath("/locations");
+}

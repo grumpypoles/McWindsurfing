@@ -8,6 +8,26 @@ import { notFound } from "next/navigation";
 /////////////
 // GET
 
+
+/** Get masts info data */
+export async function getLocations(id) {
+  const { data, error } = await supabase
+  .from("ws_locations")
+  .select("*")
+    .eq("app_user_id", id)
+    .order("id", { ascending: false });
+
+  if (error) {
+    console.error(error);
+    notFound();
+  }
+
+  return data;
+}
+
+
+
+
 /** Get masts info data */
 export async function getMasts(id) {
   const { data, error } = await supabase

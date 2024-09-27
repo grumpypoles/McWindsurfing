@@ -37,9 +37,9 @@ const Page = async ({ searchParams }) => {
           </div>
           <Link
             href={`/sundry/add`}
-            className="flex text-2xl font-semibold items-centermb-4 text-primary-300"
+            className="flex items-center mb-4 text-2xl font-semibold text-primary-300"
           >
-            <span className="flex flex-row justify-end w-full text-xl font-medium gap-x-2 mt-2">
+            <span className="flex flex-row justify-end w-full mt-2 text-xl font-medium gap-x-2">
               Add
               <ArrowRightIcon className="w-6 h-6 mr-2" />
             </span>

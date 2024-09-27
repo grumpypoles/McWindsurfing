@@ -66,6 +66,11 @@ const navSubLinks = [
     href: "/account/admin/sports",
     icon: <WrenchIcon className="w-5 h-5 text-primary-600" />,
   },
+  {
+    name: "Ocean Locations",
+    href: "/locations",
+    icon: <WrenchIcon className="w-5 h-5 text-primary-600" />,
+  },
  
   
   ];
