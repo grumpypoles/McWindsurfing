@@ -212,4 +212,51 @@ export async function getRatings() {
   return data;
 }
 
+/** Functions delete session */
+
+
+export async function deleteSession(rowId) {
+  const session = await auth();
+  if (!session) throw new Error("You must be logged in");
+
+  const { error } = await supabase
+    .from("ws_tow")
+    .delete()
+    .eq("id", rowId);
+
+  if (error) throw new Error("WS Session record could not be deleted");
+
+  revalidatePath("/tow");
+}
+
+// Get data linked to location info
+export async function getTowSpot(id) {
+  const { data, error } = await supabase
+    .from("ws_tow")
+    .select("*")
+    .eq("id", id)
+    .single()
+
+  if (error) {
+    console.error(error);
+    notFound();
+  }
+
+  return data;
+}
+
+export async function getLocationMap(mapSpot) {
+  const { data, error } = await supabase
+    .from("ws_locations")
+    .select("id")
+    .eq("spot", mapSpot)
+    .single()
+
+  if (error) {
+    console.error(error);
+    notFound();
+  }
+
+  return data;
+}
 

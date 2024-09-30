@@ -4,14 +4,14 @@ import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-quartz.css";
 import { useMemo, useState } from "react";
-import DeleteLocation from "@/app/_components/DeleteLocation";
-import LocationEdit from "@/app/_components/LocationEdit";
-import LocationDetails from "@/app/_components/LocationDetails";
+import DeleteTow from "@/app/_components/DeleteTow";
+import TowDetails from "@/app/_components/TowDetails";
+import TowEdit from "@/app/_components/TowEdit";
 
 const EditRow = ({ data }) => (
   <>
     <div className="flex flex-col w-[100px]">
-      <LocationDetails copiedRow={data} />
+      <TowDetails copiedRow={data} />
     </div>
   </>
 );
@@ -19,7 +19,7 @@ const EditRow = ({ data }) => (
 const RowDetails = ({ data }) => (
   <>
     <div className="flex flex-col w-[100px]">
-      <LocationEdit copiedRow={data} />
+      <TowEdit copiedRow={data} />
     </div>
   </>
 );
@@ -27,7 +27,7 @@ const RowDetails = ({ data }) => (
 const DeleteRow = ({ data }) => (
   <>
     <div className="flex flex-col w-[100px]">
-      <DeleteLocation rowId={data.id} />
+      <DeleteTow rowId={data.id} />
     </div>
   </>
 );
