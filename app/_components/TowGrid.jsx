@@ -32,7 +32,7 @@ const DeleteRow = ({ data }) => (
   </>
 );
 
-const LocationGrid = ({ rowData }) => {
+const TowGrid = ({ rowData }) => {
   const defaultColDef = useMemo(
     () => ({
       flex: 1,
@@ -41,12 +41,14 @@ const LocationGrid = ({ rowData }) => {
     []
   );
 
-  const [colDefs] = useState([
-    { field: "spot", minWidth: 300, filter: true, editable: false },
-    { field: "sport", minWidth: 300, filter: true, editable: false },
+  // const activitiesList = activities.map((item) => item.activity);
 
-    { field: "latitude", filter: true, editable: false },
-    { field: "longitude", filter: true, editable: false },
+  const [colDefs] = useState([
+    { field: "date", filter: true, editable: false },
+    { field: "spot", minWidth: 200, filter: true, editable: false },
+    { field: "sport", minWidth: 200, filter: true, editable: false },
+    { field: "discipline", minWidth: 200, filter: true, editable: false },
+    { field: "rating", filter: true, editable: true },
 
     {
       field: "custom",
@@ -82,4 +84,4 @@ const LocationGrid = ({ rowData }) => {
   );
 };
 
-export default LocationGrid;
+export default TowGrid;

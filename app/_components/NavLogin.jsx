@@ -13,9 +13,18 @@ export default async function NavLogin() {
         
         {session ? (
           <>
+         
           <li className="flex items-center">
             <NavDropDown />
             
+            </li>
+            <li>
+              <Link
+                href="/tow"
+                className="px-3 py-2 transition-colors hover:bg-primary-700"
+              >
+                Tow
+              </Link>
             </li>
             <li>
               <Link

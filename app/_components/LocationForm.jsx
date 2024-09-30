@@ -4,9 +4,8 @@ import Image from "next/image";
 import { addLocation, editLocation } from "@/app/_lib/actions_locations";
 
 const LocationForm = ({ equipment, edit }) => {
-console.log(equipment)
+  console.log(equipment);
 
-  
   // State for form data
   const [formData, setFormData] = useState({
     spot: "",
@@ -14,7 +13,6 @@ console.log(equipment)
     map_location: "",
     latitude: "",
     longitude: "",
-    is_active: "",
     // Add other fields here...
   });
 
@@ -28,7 +26,6 @@ console.log(equipment)
         make: equipment[0].make || "",
         latitude: equipment[0].latitude || "",
         longitude: equipment[0].longitude || "",
-        is_active: equipment[0].is_active || "",
         app_user_id: equipment[0].app_user_id || "",
         // Add other fields here...
       });
@@ -58,16 +55,15 @@ console.log(equipment)
             action={edit ? editLocation : addLocation}
           >
             <div className="grid grid-cols-4 gap-2 pt-4 mb-5">
-            <input
-                  type="number"
-                  name="id"
-                  id="id"
-                  hidden={true}
-                  value={formData.id}
-                  onChange={handleInputChange}
-                                  
-                />
-              <div className="col-span-2">
+              <input
+                type="number"
+                name="id"
+                id="id"
+                hidden={true}
+                value={formData.id}
+                onChange={handleInputChange}
+              />
+              <div className="">
                 <label
                   htmlFor="spot"
                   className="block mb-3 text-base font-medium text-primary-300"
@@ -86,7 +82,7 @@ console.log(equipment)
                 />
               </div>
 
-              <div className="col-span-2">
+              <div className="">
                 <label
                   htmlFor="sport"
                   className="block mb-3 text-base font-medium text-primary-300"
@@ -108,26 +104,7 @@ console.log(equipment)
                   </option>
                 </select>
               </div>
-            </div>
-            <div className="grid grid-cols-4 gap-2 mb-5 ">
-              <div className="col-span-4">
-                <label
-                  htmlFor="map_location"
-                  className="block mb-3 text-base font-medium text-primary-300"
-                >
-                  My Google Map
-                </label>
-                <textarea
-                  rows={5}
-                  name="map_location"
-                  id="map_location"
-                  required
-                  className="w-full text-sm font-semibold text-primary-800 bg-primary-100 border rounded cursor-pointer file:cursor-pointer file:border-0 file:py-2.5 file:px-4 file:mr-4 file:bg-primary-100 file:hover:bg-primary-200 file:text-primary-900"
-                />
-              </div>
-            </div>
-            <div className="grid grid-cols-12 gap-2 mb-5 ">
-              <div className="col-span-4">
+              <div className="">
                 <label
                   htmlFor="latitude"
                   className="block mb-3 text-base font-medium text-primary-300"
@@ -147,7 +124,7 @@ console.log(equipment)
                   className="w-full rounded-md border border-primary-200 bg-primary-100 py-2.5 px-6 text-base font-medium text-primary-900 focus:ring focus:ring-opacity-50 disabled:opacity-50"
                 />
               </div>
-              <div className="col-span-4">
+              <div className="">
                 <label
                   htmlFor="longitude"
                   className="block mb-3 text-base font-medium text-primary-300"
@@ -167,38 +144,32 @@ console.log(equipment)
                   className="w-full rounded-md border border-primary-200 bg-primary-100 py-2.5 px-6 text-base font-medium text-primary-900 focus:ring focus:ring-opacity-50 disabled:opacity-50"
                 />
               </div>
+            </div>
+            <div className="grid grid-cols-4 gap-2 mb-5 ">
               <div className="col-span-4">
                 <label
-                  htmlFor="is_active"
+                  htmlFor="map_location"
                   className="block mb-3 text-base font-medium text-primary-300"
                 >
-                  Status
+                  My Google Map
                 </label>
-                <select
-                  id="is_active"
-                  name="is_active"
-                  value={formData.is_active}
-                  onChange={handleInputChange}
-                  className="w-full px-6 py-3 text-base font-medium border rounded-md border-primary-200 bg-primary-100 text-primary-900 focus:ring focus:ring-opacity-50 disabled:opacity-50"
-                >
-                  <option value="true" className="text-centre">
-                    Active
-                  </option>
-                  <option value="false" className="text-left">
-                    Inactive
-                  </option>
-                </select>
+                <textarea
+                  rows={5}
+                  name="map_location"
+                  id="map_location"
+                  required
+                  className="w-full text-sm font-semibold text-primary-800 bg-primary-100 border rounded cursor-pointer file:cursor-pointer file:border-0 file:py-2.5 file:px-4 file:mr-4 file:bg-primary-100 file:hover:bg-primary-200 file:text-primary-900"
+                />
               </div>
             </div>
-
-            <div className="flex justify-end">
-              <button
-                type="submit"
-                className="px-8 py-4 font-semibold transition-all rounded-md bg-primary-700 text-primary-100 hover:bg-gray-500 disabled:cursor-not-allowed disabled:bg-gray-500 disabled:text-gray-300"
-              >
-                {edit ? "Edit Location" : "Add Location"}
-              </button>
-            </div>
+              <div className="flex justify-end">
+                <button
+                  type="submit"
+                  className="px-8 py-4 font-semibold transition-all rounded-md bg-primary-700 text-primary-100 hover:bg-gray-500 disabled:cursor-not-allowed disabled:bg-gray-500 disabled:text-gray-300"
+                >
+                  {edit ? "Edit Location" : "Add Location"}
+                </button>
+              </div>
           </form>
         </div>
       </div>

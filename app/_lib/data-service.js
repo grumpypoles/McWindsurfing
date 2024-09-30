@@ -9,7 +9,25 @@ import { notFound } from "next/navigation";
 // GET
 
 
-/** Get masts info data */
+/** Get location info data */
+export async function getSessions(id) {
+  const { data, error } = await supabase
+  .from("ws_tow")
+  .select("*")
+    .eq("app_user_id", id)
+    .order("id", { ascending: false });
+
+  if (error) {
+    console.error(error);
+    notFound();
+  }
+
+  return data;
+}
+
+
+
+/** Get location info data */
 export async function getLocations(id) {
   const { data, error } = await supabase
   .from("ws_locations")

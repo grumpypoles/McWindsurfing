@@ -34,7 +34,7 @@ export async function updateProfile(formData) {
 // Loging Functions
 
 export async function signInAction() {
-  await signIn("google", { redirectTo: "/account" });
+  await signIn("google", { redirectTo: "/tow" });
 }
 
 export async function signOutAction() {

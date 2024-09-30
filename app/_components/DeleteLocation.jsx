@@ -3,7 +3,7 @@ import { TrashIcon } from "@heroicons/react/24/solid";
 
 import { useTransition } from "react";
 import SpinnerMini from "@/app/_components/SpinnerMini";
-import { deleteLocation } from "@/app/_lib/actions_masts";
+import { deleteLocation } from "@/app/_lib/actions_locations";
 
 function DeleteLocation({ rowId, onDelete }) {
   const [isPending, startTransition] = useTransition();

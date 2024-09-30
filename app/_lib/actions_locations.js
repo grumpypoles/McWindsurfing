@@ -3,7 +3,6 @@
 import { revalidatePath } from "next/cache";
 import { auth } from "@/app/_lib/auth";
 import { supabase } from "@/app/_lib/supabase";
-import cloudinary from "@/app/_lib/cloudinary";
 
 //Add new location
 export async function addLocation(formData) {
@@ -80,7 +79,7 @@ export async function editLocation(formData) {
     throw new Error("Mast technical data could not be updated");
 
   
-  revalidatePath("/sundry");
+  revalidatePath("/locations");
 }
 
 
@@ -102,3 +101,19 @@ export async function getLocation(id) {
 
 
 
+/** Functions linked to ws_locations */
+
+
+export async function deleteLocation(rowId) {
+  const session = await auth();
+  if (!session) throw new Error("You must be logged in");
+
+  const { error } = await supabase
+    .from("ws_locations")
+    .delete()
+    .eq("id", rowId);
+
+  if (error) throw new Error("WS Category record could not be deleted");
+
+  revalidatePath("/locations");
+}
