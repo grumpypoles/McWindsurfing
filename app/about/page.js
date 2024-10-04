@@ -48,7 +48,7 @@ export default async function Page() {
 
           <div>
             <Link
-              href="/account"
+              href="/tow"
               className="px-8 py-6 text-lg font-semibold transition-all rounded-md bg-primary-500 text-primary-100 hover:bg-stone-600"
             >
               Sessions

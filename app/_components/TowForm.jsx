@@ -3,8 +3,9 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { addTow, editTow } from "@/app/_lib/actions_tow";
 
-const TowForm = ({ equipment, edit, data1, data2, data3, data4, data5, data6, data7, data8 }) => {
-  console.log(data1);
+const TowForm = ({edit, data1, data2, data3, data4, data5, data6, data7, data8, data9 }) => {
+  // console.log(`Equipment: ${data9[0].spot}`);
+  // console.log(`Data 9: ${data9[0].spot}`)
 
 
   // Append a new item to the list
@@ -22,7 +23,7 @@ const TowForm = ({ equipment, edit, data1, data2, data3, data4, data5, data6, da
 
   // useEffect(() => {
   //   if (edit) {
-  //     const imageUrlsString = equipment[0]?.image || "[]"; // Default to '[]' if image is undefined
+  //     const imageUrlsString = data9[0]?.image || "[]"; // Default to '[]' if image is undefined
   //     const parsedImageUrls = JSON.parse(imageUrlsString);
   //     setImageUrls(parsedImageUrls); // Update state with image URLs
   //   }
@@ -30,7 +31,7 @@ const TowForm = ({ equipment, edit, data1, data2, data3, data4, data5, data6, da
 
   // useEffect(() => {
   //   if (edit) {
-  //     const invoiceImageUrls = equipment[0]?.invoice || "[]";
+  //     const invoiceImageUrls = data9[0]?.invoice || "[]";
   //     setInvoiceUrls(invoiceImageUrls); // Update state with image URLs
 
   //   }
@@ -62,30 +63,31 @@ const TowForm = ({ equipment, edit, data1, data2, data3, data4, data5, data6, da
 
   // Populate form if `edit` is true and `mastData` is provided
   useEffect(() => {
-    if (edit && equipment) {
+    if (edit && data9) {
       setFormData({
-        date: equipment[0].date || "",
-        s_time: equipment[0].s_time || "",
-        e_time: equipment[0].e_time || "",
-        duration: equipment[0].duration || "",
-        distance: equipment[0].distance || "",
-        spot: equipment[0].spot || "",
-        sport: equipment[0].sport || "",
-        discipline: equipment[0].discipline || "",
-        wind_direction: equipment[0].wind_direction || "",
-        wind_strength: equipment[0].wind_strength || "",
-        swell_size: equipment[0].swell_size || "0",
-        swell_direction: equipment[0].swell_direction || "",
-        tide_height: equipment[0].tide_height || "",
-        tide_direction: equipment[0].tide_direction || "",
-        sail: equipment[0].sail || "",
-        board: equipment[0].board || "",
-        rating: equipment[0].rating || "",
-        comments: equipment[0].comments || "",
+        date: data9[0].date || "",
+        s_time: data9[0].s_time || "",
+        e_time: data9[0].e_time || "",
+        duration: data9[0].duration || "",
+        distance: data9[0].distance || "0.00",
+        spot: data9[0].spot || "",
+        sport: data9[0].sport || "",
+        discipline: data9[0].discipline || "",
+        wind_direction: data9[0].wind_direction || "",
+        wind_strength: data9[0].wind_strength || "",
+        swell_size: data9[0].swell_size || "0",
+        swell_direction: data9[0].swell_direction || "",
+        tide_height: data9[0].tide_height || "",
+        tide_direction: data9[0].tide_direction || "",
+        sail: data9[0].sail || "",
+        board: data9[0].board || "",
+        rating: data9[0].rating || "",
+        comments: data9[0].comments || "",
+        id: data9[0].id,
         // Add other fields here...
       });
     }
-  }, [edit, equipment]);
+  }, [edit, data9]);
 
   // Handle form input change
   const handleInputChange = (e) => {
@@ -107,6 +109,15 @@ const TowForm = ({ equipment, edit, data1, data2, data3, data4, data5, data6, da
           </div>
           <form className="px-8 pb-6" action={edit ? editTow : addTow}>
             <div className="grid grid-cols-12 gap-2 pt-4 mb-5">
+            <input
+                type="number"
+                name="id"
+                id="id"
+                hidden={true}
+                value={formData.id}
+                onChange={handleInputChange}
+              />
+           
               <div className="col-span-2">
                 <label
                   htmlFor="date"
@@ -516,7 +527,9 @@ const TowForm = ({ equipment, edit, data1, data2, data3, data4, data5, data6, da
                   name="comments"
                   id="comments"
                   required
-                  className="w-full text-sm font-semibold text-primary-800 bg-primary-100 border rounded cursor-pointer file:cursor-pointer file:border-0 file:py-2.5 file:px-4 file:mr-4 file:bg-primary-100 file:hover:bg-primary-200 file:text-primary-900"
+                  value={formData.comments}
+                  onChange={handleInputChange}
+                  className="w-full text-xl font-semibold text-primary-800 bg-primary-100 border rounded cursor-pointer file:cursor-pointer file:border-0 file:py-2.5 file:px-4 file:mr-4 file:bg-primary-100 file:hover:bg-primary-200 file:text-primary-900"
                 />
               </div>
             </div>

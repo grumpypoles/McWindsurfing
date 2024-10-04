@@ -3,7 +3,6 @@
 import { revalidatePath } from "next/cache";
 import { auth } from "@/app/_lib/auth";
 import { supabase } from "@/app/_lib/supabase";
-import cloudinary from "@/app/_lib/cloudinary";
 
 //Add new location
 export async function addTow(formData) {
@@ -13,21 +12,45 @@ export async function addTow(formData) {
  
 
   // Technical Data
+  const date = formData.get("date");
+  const s_time = formData.get("s_time");
+  const e_time = formData.get("e_time");
+  const duration = formData.get("duration");
+  const distance = formData.get("distance");
   const spot = formData.get("spot");
   const sport = formData.get("sport");
-  const map_location = formData.get("map_location");
-  const latitude = formData.get("latitude");
-  const longitude = formData.get("longitude");
-  const is_active = formData.get("is_active");
+  const discipline = formData.get("discipline");
+  const wind_direction = formData.get("wind_direction");
+  const wind_strength = formData.get("wind_strength");
+  const swell_size = formData.get("swell_size");
+  const swell_direction = formData.get("swell_direction");
+  const tide_height = formData.get("tide_height");
+  const tide_direction = formData.get("tide_direction");
+  const sail = formData.get("sail");
+  const board = formData.get("board");
+  const rating = formData.get("rating");
+  const comments = formData.get("comments");
   const app_user_id = session.user.appUserId;
 
   const technicalData = {
+    date,
+    s_time,
+    e_time,
+    duration,
+    distance,
     spot,
     sport,
-    map_location,
-    latitude,
-    longitude,
-    is_active,
+    discipline,
+    wind_direction,
+    wind_strength,
+    swell_size,
+    swell_direction,
+    tide_height,
+    tide_direction,
+    sail,
+    board,
+    rating,
+    comments,
     app_user_id,
   };
  
@@ -38,7 +61,7 @@ export async function addTow(formData) {
     .insert(technicalData);
 
   if (technicalError)
-    throw new Error("Location data could not be updated");
+    throw new Error("Session data could not be updated");
 
   
 
@@ -53,22 +76,47 @@ export async function editTow(formData) {
 
  
   // Technical Data
+  const date = formData.get("date");
+  const s_time = formData.get("s_time");
+  const e_time = formData.get("e_time");
+  const duration = formData.get("duration");
+  const distance = formData.get("distance");
   const spot = formData.get("spot");
   const sport = formData.get("sport");
-  const map_location = formData.get("map_location");
-  const latitude = formData.get("latitude");
-  const longitude = formData.get("longitude");
-  const is_active = formData.get("is_active");
+  const discipline = formData.get("discipline");
+  const wind_direction = formData.get("wind_direction");
+  const wind_strength = formData.get("wind_strength");
+  const swell_size = formData.get("swell_size");
+  const swell_direction = formData.get("swell_direction");
+  const tide_height = formData.get("tide_height");
+  const tide_direction = formData.get("tide_direction");
+  const sail = formData.get("sail");
+  const board = formData.get("board");
+  const rating = formData.get("rating");
+  const comments = formData.get("comments");
   const id = formData.get("id");
   
 
   const technicalData = {
+    date,
+    s_time,
+    e_time,
+    duration,
+    distance,
     spot,
     sport,
-    map_location,
-    latitude,
-    longitude,
-    is_active,
+    discipline,
+    wind_direction,
+    wind_strength,
+    swell_size,
+    swell_direction,
+    tide_height,
+    tide_direction,
+    sail,
+    board,
+    rating,
+    comments,
+    
     };
 
     const { data: technicalDataInput, error: technicalError } = await supabase
@@ -251,6 +299,23 @@ export async function getLocationMap(mapSpot) {
     .select("id")
     .eq("spot", mapSpot)
     .single()
+
+  if (error) {
+    console.error(error);
+    notFound();
+  }
+
+  return data;
+}
+
+
+
+//Get all data for location
+export async function getSpecificSession(id) {
+  const { data, error } = await supabase
+    .from("ws_tow")
+    .select("*")
+    .eq("id", id);
 
   if (error) {
     console.error(error);

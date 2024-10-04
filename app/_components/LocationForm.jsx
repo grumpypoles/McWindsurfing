@@ -4,7 +4,7 @@ import Image from "next/image";
 import { addLocation, editLocation } from "@/app/_lib/actions_locations";
 
 const LocationForm = ({ equipment, edit }) => {
-  console.log(equipment);
+  
 
   // State for form data
   const [formData, setFormData] = useState({

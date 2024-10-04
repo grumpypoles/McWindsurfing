@@ -3,60 +3,24 @@
 import { revalidatePath } from "next/cache";
 import { auth } from "@/app/_lib/auth";
 import { supabase } from "@/app/_lib/supabase";
-import cloudinary from "@/app/_lib/cloudinary";
+import { UploadFiles } from "../_components/UploadFiles";
 
 //Add new board
 export async function addBoard(formData) {
   const session = await auth();
   if (!session) throw new Error("You must be logged in");
 
-  //Upload Images
-  const images = formData.getAll("image").filter((img) => img.name !== "");
+ // Upload Images
+const images = formData.getAll("image");
+const imageUrls = UploadFiles(images, "ws_images");
 
-  const imageUrls = [];
+// Upload Invoices
+const invoices = formData.getAll("invoice");
+const invoiceUrls = await UploadFiles(invoices, "ws_invoices");
 
-  for (const imageFile of images) {
-    const imageBuffer = await imageFile.arrayBuffer();
-    const imageArray = Array.from(new Uint8Array(imageBuffer));
-    const imageData = Buffer.from(imageArray);
+// Now you can use imageUrls and invoiceUrls as needed
+// console.log({  invoiceUrls, imageUrls});
 
-    // Convert to base64
-    const imageBase64 = imageData.toString("base64");
-
-    // Make request to cloudinary
-    const result = await cloudinary.uploader.upload(
-      `data:image/png;base64,${imageBase64}`,
-      {
-        folder: "ws_images",
-      }
-    );
-
-    imageUrls.push(result.secure_url);
-  }
-
-  //Upload Invoices
-  const invoices = formData.getAll("invoice").filter((inv) => inv.name !== "");
-
-  const invoiceUrls = [];
-
-  for (const invoiceFile of invoices) {
-    const invoiceBuffer = await invoiceFile.arrayBuffer();
-    const invoiceArray = Array.from(new Uint8Array(invoiceBuffer));
-    const invoiceData = Buffer.from(invoiceArray);
-
-    // Convert to base64
-    const invoiceBase64 = invoiceData.toString("base64");
-
-    // Make request to cloudinary
-    const resultInvoice = await cloudinary.uploader.upload(
-      `data:invoice/png;base64,${invoiceBase64}`,
-      {
-        folder: "ws_invoices",
-      }
-    );
-
-    invoiceUrls.push(resultInvoice.secure_url);
-  }
 
    // Technical Data
 
@@ -157,53 +121,17 @@ export async function editBoard(formData) {
   const session = await auth();
   if (!session) throw new Error("You must be logged in");
 
-  //Upload Images
-  const images = formData.getAll("image").filter((img) => img.name !== "");
+ // Upload Images
+const images = formData.getAll("image");
+const imageUrls = UploadFiles(images, "ws_images");
 
-  const imageUrls = [];
+// Upload Invoices
+const invoices = formData.getAll("invoice");
+const invoiceUrls = await UploadFiles(invoices, "ws_invoices");
 
-  for (const imageFile of images) {
-    const imageBuffer = await imageFile.arrayBuffer();
-    const imageArray = Array.from(new Uint8Array(imageBuffer));
-    const imageData = Buffer.from(imageArray);
+// Now you can use imageUrls and invoiceUrls as needed
+// console.log({  invoiceUrls, imageUrls});
 
-    // Convert to base64
-    const imageBase64 = imageData.toString("base64");
-
-    // Make request to cloudinary
-    const result = await cloudinary.uploader.upload(
-      `data:image/png;base64,${imageBase64}`,
-      {
-        folder: "ws_images",
-      }
-    );
-
-    imageUrls.push(result.secure_url);
-  }
-
-  //Upload Invoices
-  const invoices = formData.getAll("invoice").filter((inv) => inv.name !== "");
-
-  const invoiceUrls = [];
-
-  for (const invoiceFile of invoices) {
-    const invoiceBuffer = await invoiceFile.arrayBuffer();
-    const invoiceArray = Array.from(new Uint8Array(invoiceBuffer));
-    const invoiceData = Buffer.from(invoiceArray);
-
-    // Convert to base64
-    const invoiceBase64 = invoiceData.toString("base64");
-
-    // Make request to cloudinary
-    const resultInvoice = await cloudinary.uploader.upload(
-      `data:invoice/png;base64,${invoiceBase64}`,
-      {
-        folder: "ws_invoices",
-      }
-    );
-
-     invoiceUrls.push(resultInvoice.secure_url);
-  }
 
   // Technical Data
 

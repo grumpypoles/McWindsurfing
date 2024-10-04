@@ -1,11 +1,5 @@
 'use client'
 
-import Image from "next/image";
-import EquipmentHeaderImage from "./EquipmentHeaderImage";
-import EquipmentHeader from "./EquipmentHeader";
-import EquipmentFinance from "./EquipmentFinance";
-import EquipmentTechnical from "./EquipmentTechnical";
-import EquipmentInvoice from "./EquipmentInvoice";
 import TowEquipment from "./TowEquipment";
 import TowWeather from "./TowWeather";
 

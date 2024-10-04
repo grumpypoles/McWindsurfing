@@ -79,8 +79,8 @@ const Page = () => {
 
   return (
     <>
-      {/* {loading && <Spinner loading={loading} />}
-      {!loading && equipmentData && ( */}
+      {loading && <Spinner loading={loading} />}
+      {!loading && data && (
       <>
         <Suspense fallback={<Spinner />}>
           <Link
@@ -94,10 +94,11 @@ const Page = () => {
           </Link>
 
           {/* <TowForm equipment={null} edit={null} locations={locations} disciplines={disciplines}/> */}
-          <TowForm equipment={null} edit={null} {...data} />
+          <TowForm 
+          edit={null} {...data} />
         </Suspense>
       </>
-      {/* )} */}
+      )}
     </>
   );
 };
