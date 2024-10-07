@@ -19,7 +19,7 @@ function BoardCard({ equipment }) {
           // className="object-cover" // Maintain aspect ratio, fill the container
         />
       </div>
-      <div className="p-4">
+      <div className="p-4 min-h-32">
         <div className="mb-6 text-left md:text-center lg:text-left">
           <div className="w-full px-5 py-3 rounded-sm shadow-sm bg-primary-200 text-primary-800 disabled:cursor-not-allowed disabled:bg-gray-600 disabled:text-gray-400">
             {equipment.selcode} {equipment.year} {equipment.make}{" "}

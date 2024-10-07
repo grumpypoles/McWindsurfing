@@ -27,7 +27,7 @@ const RowDetails = ({ data }) => (
 const DeleteRow = ({ data }) => (
   <>
     <div className="flex flex-col w-[100px]">
-      <DeleteTow rowId={data.id} />
+      <DeleteTow rowId={data.id} date={data.date} sport={data.sport}/>
     </div>
   </>
 );

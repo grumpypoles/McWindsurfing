@@ -6,7 +6,6 @@ import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-quartz.css";
 
 function ChartWSBar({ rowData }) {
-  console.log(rowData);
 
   const chartOptions = {
     seriesDefaults: {},

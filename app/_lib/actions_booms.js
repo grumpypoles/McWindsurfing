@@ -4,101 +4,51 @@ import { revalidatePath } from "next/cache";
 import { auth } from "@/app/_lib/auth";
 import { supabase } from "@/app/_lib/supabase";
 import { UploadFiles } from "../_components/UploadFiles";
+import { buildFinancialData, boomTechnicalData } from "@/app/_lib/helpers";
 
-//Add new board
+// Error function
+function handleSupabaseError(error, operation) {
+  console.error(`${operation} failed:`, error);
+  throw new Error(`${operation} failed. Please try again later.`);
+}
+
+//Add new boom
 export async function addBoom(formData) {
   const session = await auth();
   if (!session) throw new Error("You must be logged in");
 
   // Upload Images
-const images = formData.getAll("image");
-const imageUrls = UploadFiles(images, "ws_images");
+  const images = formData.getAll("image");
+  const imageUrls = await UploadFiles(images, "ws_images");
 
-// Upload Invoices
-const invoices = formData.getAll("invoice");
-const invoiceUrls = await UploadFiles(invoices, "ws_invoices");
+  // Upload Invoices
+  const invoices = formData.getAll("invoice");
+  const invoiceUrls = await UploadFiles(invoices, "ws_invoices");
 
-// Now you can use imageUrls and invoiceUrls as needed
-// console.log({  invoiceUrls, imageUrls});
+  // Get form data
 
-   // Technical Data
+  const technicalData = boomTechnicalData(
+    formData,
+    imageUrls,
+    session.user.appUserId,
+    "add"
+  );
+  const financialData = buildFinancialData(formData, invoiceUrls, "add");
 
-   const selcode = formData.get("selcode");
-   const year = formData.get("year");
-   const make = formData.get("make");
-   const model = formData.get("model");
-   const length = formData.get("length");
-   const adj_length = formData.get("adj_length");
-   const adj_type = formData.get("adj_type");
-   const weight = formData.get("weight")
-   const diameter = formData.get("diameter");
-   const body = formData.get("body");
-   const front_end = formData.get("front_end");
-   const back_end = formData.get("back_end");
-   const image = imageUrls;
-   const web_url = formData.get("web_url");
-   const is_active = formData.get("is_active");
-   const app_user_id = session.user.appUserId;
-
-  const technicalData = {
-    selcode,
-    year,
-    make,
-    model,
-    length,
-    adj_length,
-    adj_type,
-    weight,
-    diameter,
-    body,
-    front_end,
-    back_end,
-    image,
-    web_url,
-    is_active,
-    app_user_id,
-  };
-
-  // Financial Data
-
-  const merchant = formData.get("merchant");
-  const purchase_date = formData.get("purchase_date");
-  const retail_price = formData.get("retail_price");
-  const paid_price = formData.get("paid_price");
-  const comments = formData.get("comments");
-  const invoice = invoiceUrls;
-  const disposal = formData.get("disposal");
-  const disposal_date = formData.get("disposal_date");
-  const disposal_price = formData.get("disposal_price");
-
-  const financialData = {
-    selcode,
-    purchase_date,
-    merchant,
-    retail_price,
-    paid_price,
-    comments,
-    invoice,
-    disposal_date,
-    disposal,
-    disposal_price,
-  };
-
-
-
+  //Post form data
   const { data: technicalDataInput, error: technicalError } = await supabase
     .from("ws_booms")
     .insert(technicalData);
 
   if (technicalError)
-    throw new Error("Booms technical data could not be updated");
+    handleSupabaseError(technicalError, "Inserting technical data");
 
   const { data: FinancialDataInput, error: financialError } = await supabase
     .from("ws_costs")
     .insert(financialData);
 
   if (financialError)
-    throw new Error("Booms financial data could not be updated");
+    handleSupabaseError(financialError, "Inserting financial data");
 
   revalidatePath("/booms");
 }
@@ -108,80 +58,29 @@ export async function editBoom(formData) {
   const session = await auth();
   if (!session) throw new Error("You must be logged in");
 
- // Upload Images
-const images = formData.getAll("image");
-const imageUrls = UploadFiles(images, "ws_images");
+  // Upload Images
+  const images = formData.getAll("image");
+  const imageUrls = await UploadFiles(images, "ws_images");
 
-// Upload Invoices
-const invoices = formData.getAll("invoice");
-const invoiceUrls = await UploadFiles(invoices, "ws_invoices");
+  // Upload Invoices
+  const invoices = formData.getAll("invoice");
+  const invoiceUrls = await UploadFiles(invoices, "ws_invoices");
 
-// Now you can use imageUrls and invoiceUrls as needed
-// console.log({  invoiceUrls, imageUrls});
+  // Set the selcode
+  const selcode = formData.get("selcode");
 
+  // Get form data
 
- // Technical Data
+  const technicalData = boomTechnicalData(
+    formData,
+    imageUrls,
+    session.user.appUserId,
+    "edit"
+  );
 
- const selcode = formData.get("selcode");
- const year = formData.get("year");
- const make = formData.get("make");
- const model = formData.get("model");
- const length = formData.get("length");
- const adj_length = formData.get("adj_length");
- const adj_type = formData.get("adj_type");
- const weight = formData.get("weight")
- const diameter = formData.get("diameter");
- const body = formData.get("body");
- const front_end = formData.get("front_end");
- const back_end = formData.get("back_end");
- const image = imageUrls;
- const web_url = formData.get("web_url");
- const is_active = formData.get("is_active");
- const app_user_id = session.user.appUserId;
+  const financialData = buildFinancialData(formData, invoiceUrls, "edit");
 
-  const technicalData = {
-    // selcode,
-    year,
-    make,
-    model,
-    length,
-    adj_length,
-    adj_type,
-    weight,
-    diameter,
-    body,
-    front_end,
-    back_end,
-    image,
-    web_url,
-    is_active,
-    // app_user_id,
-  };
-
-  // Financial Data
-  // const selcode = formData.get("selcode");
-  const merchant = formData.get("merchant");
-  const purchase_date = formData.get("purchase_date");
-  const retail_price = formData.get("retail_price");
-  const paid_price = formData.get("paid_price");
-  const comments = formData.get("comments");
-  const invoice = invoiceUrls;
-  const disposal = formData.get("disposal");
-  const disposal_date = formData.get("disposal_date");
-  const disposal_price = formData.get("disposal_price");
-
-  const financialData = {
-    // selcode,
-    purchase_date,
-    merchant,
-    retail_price,
-    paid_price,
-    comments,
-    invoice,
-    disposal_date,
-    disposal,
-    disposal_price,
-  };
+  //Post form data
 
   const { data: technicalDataEdit, error: technicalError } = await supabase
     .from("ws_booms")
@@ -189,7 +88,7 @@ const invoiceUrls = await UploadFiles(invoices, "ws_invoices");
     .eq("selcode", selcode);
 
   if (technicalError)
-    throw new Error("Booms technical data could not be updated");
+    handleSupabaseError(technicalError, "Updating technical data");
 
   const { data: FinancialDataEdit, error: financialError } = await supabase
     .from("ws_costs")
@@ -197,7 +96,7 @@ const invoiceUrls = await UploadFiles(invoices, "ws_invoices");
     .eq("selcode", selcode);
 
   if (financialError)
-    throw new Error("Booms financial data could not be updated");
+    handleSupabaseError(financialError, "Updating financial data");
 
   revalidatePath("/booms");
 }

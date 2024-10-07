@@ -5,12 +5,12 @@ import { useTransition } from "react";
 import SpinnerMini from "@/app/_components/SpinnerMini";
 import { deleteSession } from "@/app/_lib/actions_tow";
 
-function DeleteTow({ rowId, onDelete }) {
+function DeleteTow({ rowId, date, sport }) {
   const [isPending, startTransition] = useTransition();
 
   function handleDelete() {
     if (confirm("Are you sure you want to delete this record?"))
-      startTransition(() => deleteSession(rowId));
+      startTransition(() => deleteSession(rowId, date, sport));
   }
 
   return (

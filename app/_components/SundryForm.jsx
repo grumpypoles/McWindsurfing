@@ -102,7 +102,6 @@ const SundryForm = ({ equipment, edit }) => {
                   type="text"
                   name="selcode"
                   id="selcode"
-                  placeholder="MT"
                   value={formData.selcode}
                   onChange={handleInputChange}
                   required
@@ -326,7 +325,7 @@ const SundryForm = ({ equipment, edit }) => {
                   name="disposal_date"
                   id="disposal_date"
                   defaultValue={"1990-01-01"}
-                  value={formData.disposal_date}
+                  // value={formData.disposal_date}
                   onChange={handleInputChange}
                   className="w-full rounded-md border border-primary-200 bg-primary-100 py-2.5 px-6 text-base font-medium text-primary-900 focus:ring focus:ring-opacity-50 disabled:opacity-50"
                 />

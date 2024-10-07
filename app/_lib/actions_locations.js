@@ -3,85 +3,63 @@
 import { revalidatePath } from "next/cache";
 import { auth } from "@/app/_lib/auth";
 import { supabase } from "@/app/_lib/supabase";
+import { locationTechnicalData } from "@/app/_lib/helpers";
+
+// Error function
+function handleSupabaseError(error, operation) {
+  console.error(`${operation} failed:`, error);
+  throw new Error(`${operation} failed. Please try again later.`);
+}
 
 //Add new location
 export async function addLocation(formData) {
   const session = await auth();
   if (!session) throw new Error("You must be logged in");
 
- 
+  // Get form data
 
-  // Technical Data
-  const spot = formData.get("spot");
-  const sport = formData.get("sport");
-  const map_location = formData.get("map_location");
-  const latitude = formData.get("latitude");
-  const longitude = formData.get("longitude");
-  const is_active = formData.get("is_active");
-  const app_user_id = session.user.appUserId;
+  const technicalData = locationTechnicalData(
+    formData,
+     session.user.appUserId,
+    "add"
+  );
 
-  const technicalData = {
-    spot,
-    sport,
-    map_location,
-    latitude,
-    longitude,
-    is_active,
-    app_user_id,
-  };
- 
-
-  
   const { data: technicalDataInput, error: technicalError } = await supabase
     .from("ws_locations")
     .insert(technicalData);
 
   if (technicalError)
-    throw new Error("Location data could not be updated");
-
-  
+    handleSupabaseError(technicalError, "Inserting technical data");
 
   revalidatePath("/locations");
 }
-
 
 //Edit existing location
 export async function editLocation(formData) {
   const session = await auth();
   if (!session) throw new Error("You must be logged in");
 
- 
-  // Technical Data
-  const spot = formData.get("spot");
-  const sport = formData.get("sport");
-  const map_location = formData.get("map_location");
-  const latitude = formData.get("latitude");
-  const longitude = formData.get("longitude");
-  const is_active = formData.get("is_active");
+  // Set the id
   const id = formData.get("id");
-  
 
-  const technicalData = {
-    spot,
-    sport,
-    map_location,
-    latitude,
-    longitude,
-    is_active,
-    };
+  // Get form data
 
-    const { data: technicalDataInput, error: technicalError } = await supabase
+  const technicalData = locationTechnicalData(
+    formData,
+   session.user.appUserId,
+    "edit"
+  );
+
+  const { data: technicalDataInput, error: technicalError } = await supabase
     .from("ws_locations")
     .update(technicalData)
     .eq("id", id);
 
   if (technicalError)
-    throw new Error("Mast technical data could not be updated");
+    handleSupabaseError(technicalError, "Inserting technical data");
 
-  
   revalidatePath("/locations");
 }
-
 
 //Get all data for location
 export async function getLocation(id) {
@@ -98,11 +76,7 @@ export async function getLocation(id) {
   return data;
 }
 
-
-
-
 /** Functions linked to ws_locations */
-
 
 export async function deleteLocation(rowId) {
   const session = await auth();

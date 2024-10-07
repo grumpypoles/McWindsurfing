@@ -50,11 +50,11 @@ const Page = (params) => {
           <Suspense fallback={<Spinner />}>
             <Link
               href="/boards"
-              className="flex items-centermb-4 text-2xl font-semibold text-primary-300"
+              className="flex text-2xl font-semibold items-centermb-4 text-primary-300"
             >
               {" "}
-              <span className="flex flex-row items-center gap-x-2 w-full text-xl font-medium">
-                <ArrowLongLeftIcon className="mr-2 h-6 w-6" /> Back to Boards
+              <span className="flex flex-row items-center w-full text-xl font-medium gap-x-2">
+                <ArrowLongLeftIcon className="w-6 h-6 mr-2" /> Back to Boards
               </span>
             </Link>
 

@@ -17,10 +17,10 @@ function BoomCard({ equipment }) {
           height={0}
           width={0}
           sizes="100vw"
-          className="w-full h-auto rounded-t-xl "
+          className="w-full h-auto rounded-t-xl min-h-32"
         />
       </Link>
-      <div className="p-4">
+      <div className="p-4 min-h-32">
         <div className="mb-6 text-left md:text-center lg:text-left">
           <div className="w-full px-5 py-3 rounded-sm shadow-sm bg-primary-200 text-primary-800 disabled:cursor-not-allowed disabled:bg-gray-600 disabled:text-gray-400">
             {equipment.selcode} {equipment.year} {equipment.make}{" "}

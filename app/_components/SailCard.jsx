@@ -10,7 +10,7 @@ function SailCard({ equipment }) {
 
   return (
     <div className="flex flex-col gap-6 px-12 py-8 text-lg bg-primary-800">
-      <div className="w-3/4 h-64 mx-auto relative rounded-t-xl overflow-hidden">
+      <div className="relative w-3/4 h-64 mx-auto overflow-hidden rounded-t-xl">
         {" "}
         {/* Fixed height container */}
         <Image
@@ -21,7 +21,7 @@ function SailCard({ equipment }) {
           // className="object-cover" // Maintain aspect ratio, fill the container
         />
       </div>
-      <div className="p-4">
+      <div className="p-4 min-h-32 ">
         <div className="mb-6 text-left md:text-center lg:text-left">
           <div className="w-full px-5 py-3 rounded-sm shadow-sm bg-primary-200 text-primary-800 disabled:cursor-not-allowed disabled:bg-gray-600 disabled:text-gray-400">
             {equipment.selcode} {equipment.year} {equipment.make}{" "}
@@ -30,23 +30,23 @@ function SailCard({ equipment }) {
         </div>
       </div>
 
-      <div className="mb-2 flex flex-row justify-between">
+      <div className="flex flex-row items-end justify-between mb-2">
         <Link
           href={`/sails/${equipment.id}/edit`}
-          className="flex items-centermb-4 text-2xl font-semibold text-primary-300"
+          className="flex items-center mb-4 text-2xl font-semibold text-primary-300"
         >
           {" "}
-          <span className="flex flex-row items-center gap-x-2 w-full text-xl font-medium">
-            <ArrowLeftIcon className="mr-2 h-6 w-6" /> Update
+          <span className="flex flex-row items-center w-full text-xl font-medium gap-x-2">
+            <ArrowLeftIcon className="w-6 h-6 mr-2" /> Update
           </span>
         </Link>
         <Link
           href={`/sails/${equipment.id}`}
-          className="flex items-centermb-4 text-2xl font-semibold text-primary-300"
+          className="flex items-center mb-4 text-2xl font-semibold text-primary-300"
         >
-          <span className="flex flex-row items-center gap-x-2 w-full text-xl font-medium">
+          <span className="flex flex-row items-center w-full text-xl font-medium gap-x-2">
             Details
-            <ArrowRightIcon className="mr-2 h-6 w-6" />
+            <ArrowRightIcon className="w-6 h-6 mr-2" />
           </span>
         </Link>
       </div>
