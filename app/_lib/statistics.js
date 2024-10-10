@@ -11,7 +11,8 @@ export async function getDisciplineStats(id) {
     .from("ws_tow_summary")
     .select(`
       category,
-      counter
+      counter,
+      total_duration
     `)
     .order("category", { ascending: true });
 

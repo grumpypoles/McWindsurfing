@@ -5,13 +5,13 @@ import { AgCharts } from "ag-charts-react";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-quartz.css";
 
-function ChartWSBar({ rowData }) {
+function ChartWSBarTime({ rowData }) {
 
   const chartOptions = {
     seriesDefaults: {},
     data: rowData,
     title: {
-      text: "Ocean Activities - Frequency",
+      text: "Ocean Activities - Time",
       // color: ["#99B0C7"],
     },
     theme: "ag-vivid-dark",
@@ -53,7 +53,7 @@ function ChartWSBar({ rowData }) {
       {
         type: "donut",
         calloutLabelKey: "category",
-        angleKey: "counter",
+        angleKey: "total_duration",
         innerRadiusRatio: 0.7,
         showInLegend: false,
         // calloutLabel:false,
@@ -74,4 +74,4 @@ function ChartWSBar({ rowData }) {
   );
 }
 
-export default ChartWSBar;
+export default ChartWSBarTime;
