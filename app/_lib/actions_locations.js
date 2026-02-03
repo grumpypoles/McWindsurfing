@@ -1,6 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation"
 import { auth } from "@/app/_lib/auth";
 import { supabase } from "@/app/_lib/supabase";
 import { locationTechnicalData } from "@/app/_lib/helpers";
@@ -32,6 +33,7 @@ export async function addLocation(formData) {
     handleSupabaseError(technicalError, "Inserting technical data");
 
   revalidatePath("/locations");
+  redirect("/locations");
 }
 
 //Edit existing location
@@ -59,6 +61,7 @@ export async function editLocation(formData) {
     handleSupabaseError(technicalError, "Inserting technical data");
 
   revalidatePath("/locations");
+  redirect("/locations");
 }
 
 //Get all data for location
@@ -90,4 +93,5 @@ export async function deleteLocation(rowId) {
   if (error) throw new Error("WS Category record could not be deleted");
 
   revalidatePath("/locations");
+  redirect("/locations");
 }

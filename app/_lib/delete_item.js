@@ -74,8 +74,6 @@ async function delete_item(eqData, eqCategory) {
     console.error("Failed to delete images or invoices. Operation aborted.");
   }
 
-  // await property.deleteOne();
-  // revalidatePath('/', 'layout')
-}
+ 
 export default delete_item;
 

@@ -1,6 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation"
 import { auth } from "@/app/_lib/auth";
 import { supabase } from "@/app/_lib/supabase";
 import { UploadFiles } from "../_components/UploadFiles";
@@ -51,6 +52,7 @@ export async function addSail(formData) {
     handleSupabaseError(financialError, "Inserting financial data");
 
   revalidatePath("/sails");
+  redirect("/sails");
 }
 
 //Edit existing sail
@@ -99,6 +101,7 @@ export async function editSail(formData) {
     handleSupabaseError(financialError, "Updating financial data");
 
   revalidatePath("/sails");
+  redirect("/sails");
 }
 
 //Get all data for specific sail

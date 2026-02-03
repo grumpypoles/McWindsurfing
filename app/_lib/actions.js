@@ -1,6 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation"
 import { auth, signIn, signOut } from "@/app/_lib/auth";
 import { supabase } from "./supabase";
 
@@ -22,6 +23,7 @@ export async function updateProfile(formData) {
   if (error) throw new Error("App user could not be updated");
 
   revalidatePath("/account/profile");
+  redirect("/account/profile");
 }
 
 

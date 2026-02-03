@@ -10,6 +10,7 @@ import { getBoard } from "@/app/_lib/actions_boards";
 import BoardDashboard from "@/app/_components/BoardDashboard";
 import { useTransition } from "react";
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation"
 import delete_item from "@/app/_lib/delete_item";
 
 const Page = (params) => {
@@ -51,7 +52,8 @@ const Page = (params) => {
         try {
           await delete_item(equipmentData, "ws_boards");
           // Optionally show success message or redirect user after deletion
-          revalidatePath("/bopards")
+          revalidatePath("/boards")
+          redirect("/boards");
         } catch (error) {
           console.error("Error deleting item:", error);
           // Show error feedback to the user

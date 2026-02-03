@@ -1,6 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation"
 import { auth } from "@/app/_lib/auth";
 import { supabase } from "@/app/_lib/supabase";
 import { UploadFiles } from "../_components/UploadFiles";
@@ -53,6 +54,7 @@ export async function addSundry(formData) {
     handleSupabaseError(financialError, "Inserting financial data");
 
   revalidatePath("/sundry");
+  redirect("/sundry");
 }
 
 //Edit existing sundry
@@ -101,6 +103,7 @@ export async function editSundry(formData) {
     handleSupabaseError(financialError, "Updating financial data");
 
   revalidatePath("/sundry");
+  redirect("/sundry");
 }
 
 //Get all data for specific board

@@ -10,6 +10,7 @@ import { getSail } from "@/app/_lib/actions_sails";
 import SailDashboard from "@/app/_components/SailDashboard";
 import { useTransition } from "react";
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation"
 import delete_item from "@/app/_lib/delete_item";
 
 const Page = () => {
@@ -51,6 +52,7 @@ const Page = () => {
           await delete_item(equipmentData, "ws_sails");
           // Optionally show success message or redirect user after deletion
           revalidatePath("/sails");
+          redirect("/sails");
         } catch (error) {
           console.error("Error deleting item:", error);
           // Show error feedback to the user
@@ -70,8 +72,8 @@ const Page = () => {
               className="flex items-center mb-4 text-2xl font-semibold text-primary-300"
             >
               {" "}
-              <span className="flex flex-row items-center gap-x-2 w-full text-xl font-medium">
-                <ArrowLongLeftIcon className="mr-2 h-6 w-6" /> Back to Sails
+              <span className="flex flex-row items-center w-full text-xl font-medium gap-x-2">
+                <ArrowLongLeftIcon className="w-6 h-6 mr-2" /> Back to Sails
               </span>
             </Link>
             <>

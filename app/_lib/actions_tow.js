@@ -1,6 +1,8 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation"
+
 import { auth } from "@/app/_lib/auth";
 import { supabase } from "@/app/_lib/supabase";
 import { towTechnicalData, towRecData } from "@/app/_lib/helpers";
@@ -40,7 +42,11 @@ export async function addTow(formData) {
 
   if (recError) handleSupabaseError(recError, "Inserting recreational data");
 
+  
+  // Navigate the user to the grid
+
   revalidatePath("/tow");
+  redirect("/tow");
 }
 
 //Edit existing location
@@ -80,7 +86,10 @@ export async function editTow(formData) {
 
   if (recError) handleSupabaseError(recError, "Inserting recreational data");
 
+  // Navigate the user to the grid
+  
   revalidatePath("/tow");
+  redirect("/tow");
 }
 
 //Get all data for location
@@ -216,7 +225,10 @@ export async function deleteSession(rowId, date, sport) {
     .eq("activity", sport);
   if (recError) throw new Error("WS Session record could not be deleted");
 
+  // Navigate the user to the grid
+  
   revalidatePath("/tow");
+  redirect("/tow");
 }
 
 // Get data linked to location info

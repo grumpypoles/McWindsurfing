@@ -1,6 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation"
 import { auth } from "@/app/_lib/auth";
 import { supabase } from "@/app/_lib/supabase";
 import { UploadFiles } from "../_components/UploadFiles";
@@ -51,6 +52,7 @@ export async function addBoard(formData) {
     handleSupabaseError(financialError, "Inserting financial data");
 
   revalidatePath("/boards");
+  redirect("/boards");
 }
 
 //Edit existing board
@@ -99,6 +101,7 @@ export async function editBoard(formData) {
     handleSupabaseError(financialError, "Updating financial data");
 
   revalidatePath("/boards");
+  redirect("/boards");
 }
 
 //Get all data for specific board

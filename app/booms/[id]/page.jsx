@@ -10,6 +10,7 @@ import { getBoom } from "@/app/_lib/actions_booms";
 import BoomDashboard from "@/app/_components/BoomDashboard";
 import { useTransition } from "react";
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation"
 import delete_item from "@/app/_lib/delete_item";
 
 const Page = () => {
@@ -51,6 +52,7 @@ const Page = () => {
           await delete_item(equipmentData, "ws_booms");
           // Optionally show success message or redirect user after deletion
           revalidatePath("/booms")
+          redirect("/booms");
         } catch (error) {
           console.error("Error deleting item:", error);
           // Show error feedback to the user

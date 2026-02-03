@@ -10,6 +10,7 @@ import Spinner from "@/app/_components/Spinner";
 import MastDashboard from "@/app/_components/MastDashboard";
 import { useTransition } from "react";
 import { revalidatePath } from "next/cache";
+
 import delete_item from "@/app/_lib/delete_item";
 
 const Page = () => {
@@ -51,6 +52,7 @@ const Page = () => {
           await delete_item(equipmentData, "ws_masts");
           // Optionally show success message or redirect user after deletion
           revalidatePath("/masts");
+          redirect("/masts");
         } catch (error) {
           console.error("Error deleting item:", error);
           // Show error feedback to the user

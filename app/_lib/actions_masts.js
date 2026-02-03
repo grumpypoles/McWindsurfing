@@ -1,6 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation"
 import { auth } from "@/app/_lib/auth";
 import { supabase } from "@/app/_lib/supabase";
 import { UploadFiles } from "../_components/UploadFiles";
@@ -51,6 +52,7 @@ export async function addMast(formData) {
     handleSupabaseError(financialError, "Inserting financial data");
 
   revalidatePath("/masts");
+  redirect("/masts");
 }
 
 //Add new mast
@@ -99,6 +101,7 @@ const financialData = buildFinancialData(formData, invoiceUrls, "edit");
       handleSupabaseError(financialError, "Updating financial data");
 
   revalidatePath("/masts");
+  redirect("/masts");
 }
 
 //Get all data for specific mast
@@ -137,6 +140,7 @@ export async function duplicateCategory(copiedRow) {
   if (error) throw new Error("WS Categories could not be copied");
 
   revalidatePath("/account/admin/categories");
+  redirect("/account/admin/categories");
 }
 
 export async function updateCategory(params) {
@@ -160,6 +164,7 @@ export async function updateCategory(params) {
   if (error) throw new Error("WS Category data could not be updated");
 
   revalidatePath("/account/admin/categories");
+  redirect("/account/admin/categories");
 }
 
 export async function deleteCategory(rowId) {
@@ -174,6 +179,7 @@ export async function deleteCategory(rowId) {
   if (error) throw new Error("WS Category record could not be deleted");
 
   revalidatePath("/account/admin/categories");
+  redirect("/account/admin/categories");
 }
 
 /** Functions linked to ws_disciplines */
@@ -197,6 +203,7 @@ export async function duplicateDiscipline(copiedRow) {
   if (error) throw new Error("WS Discipline could not be copied");
 
   revalidatePath("/account/admin/disciplines");
+  redirect("/account/admin/disciplines");
 }
 
 export async function updateDiscipline(params) {
@@ -220,6 +227,7 @@ export async function updateDiscipline(params) {
   if (error) throw new Error("WS Discipline data could not be updated");
 
   revalidatePath("/account/admin/disciplines");
+  redirect("/account/admin/disciplines");
 }
 
 export async function deleteDiscipline(rowId) {
@@ -234,6 +242,7 @@ export async function deleteDiscipline(rowId) {
   if (error) throw new Error("WS Discipline record could not be deleted");
 
   revalidatePath("/account/admin/disciplines");
+  redirect("/account/admin/disciplines");
 }
 
 /** Functions linked to ws_wind_strength */
@@ -257,6 +266,7 @@ export async function duplicateWindPower(copiedRow) {
   if (error) throw new Error("Wind strength could not be copied");
 
   revalidatePath("/account/admin/windpower");
+  redirect("/account/admin/windpower");
 }
 
 export async function updateWindPower(params) {
@@ -280,6 +290,7 @@ export async function updateWindPower(params) {
   if (error) throw new Error("Wind strength data could not be updated");
 
   revalidatePath("/account/admin/windpower");
+  redirect("/account/admin/windpower");
 }
 
 export async function deleteWindPower(rowId) {
@@ -294,6 +305,7 @@ export async function deleteWindPower(rowId) {
   if (error) throw new Error("Wind strength record could not be deleted");
 
   revalidatePath("/account/admin/windpower");
+  redirect("/account/admin/windpower");
 }
 
 /** Functions linked to ws_wind_direction */
@@ -315,6 +327,7 @@ export async function duplicateWindDirection(copiedRow) {
   if (error) throw new Error("Wind direction could not be copied");
 
   revalidatePath("/account");
+  redirect("/account");
 }
 
 export async function updateWindDirection(params) {
@@ -336,6 +349,7 @@ export async function updateWindDirection(params) {
   if (error) throw new Error("Wind direction data could not be updated");
 
   revalidatePath("/account");
+  redirect("/account");
 }
 
 export async function deleteWindDirection(rowId) {
@@ -350,6 +364,7 @@ export async function deleteWindDirection(rowId) {
   if (error) throw new Error("Wind direction record could not be deleted");
 
   revalidatePath("/account");
+  redirect("/account");
 }
 
 /** Functions linked to sw_swell */
@@ -369,6 +384,7 @@ export async function duplicateSwell(copiedRow) {
   if (error) throw new Error("Ocean swell could not be copied");
 
   revalidatePath("/account");
+  redirect("/account");
 }
 
 export async function updateSwell(params) {
@@ -390,6 +406,8 @@ export async function updateSwell(params) {
   if (error) throw new Error("Ocean swell data could not be updated");
 
   revalidatePath("/account");
+  redirect("/account");
+
 }
 
 export async function deleteSwell(rowId) {
@@ -401,6 +419,7 @@ export async function deleteSwell(rowId) {
   if (error) throw new Error("Ocean swell record could not be deleted");
 
   revalidatePath("/account");
+  redirect("/account");
 }
 
 /** Functions linked to sw_sport */
@@ -420,6 +439,7 @@ export async function duplicateSport(copiedRow) {
   if (error) throw new Error("Sport could not be copied");
 
   revalidatePath("/account");
+  redirect("/account");
 }
 
 export async function updateSport(params) {
@@ -441,6 +461,7 @@ export async function updateSport(params) {
   if (error) throw new Error("Sport data could not be updated");
 
   revalidatePath("/account");
+  redirect("/account");
 }
 
 export async function deleteSport(rowId) {
@@ -452,4 +473,5 @@ export async function deleteSport(rowId) {
   if (error) throw new Error("Sport record could not be deleted");
 
   revalidatePath("/account");
+  redirect("/account");
 }
