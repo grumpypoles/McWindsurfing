@@ -73,7 +73,7 @@ async function delete_item(eqData, eqCategory) {
   } else {
     console.error("Failed to delete images or invoices. Operation aborted.");
   }
-
+}
  
 export default delete_item;
 
