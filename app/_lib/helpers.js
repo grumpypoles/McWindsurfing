@@ -173,16 +173,46 @@ export function towTechnicalData(formData, appUserId, action) {
     comments: formData.get("comments"),
   };
 }
+// export function towRecData(formData, appUserId, action) {
+//   return {
+//     ...(action === "add" && {
+//       app_user_id: appUserId,
+//     }),
+//     date: formData.get("date"),
+//     activity: formData.get("sport"),
+//     distance: formData.get("distance"),
+//     duration: formData.get("duration"),
+//     location: formData.get("spot"),
+//     comments: formData.get("discipline"),
+//   };
+// }
+
 export function towRecData(formData, appUserId, action) {
+  // Read values once
+  const sport = formData.get("sport");
+  const discipline = formData.get("discipline");
+
+  // Default activity = original sport
+  let activity = sport;
+
+  // Override only for SUP rules
+  if (sport === "SUP") {
+    if (discipline === "Long Distance") {
+      activity = "SUP - Flat Water";
+    } else if (discipline === "Surfing") {
+      activity = "SUP - Surf";
+    }
+  }
+
   return {
     ...(action === "add" && {
       app_user_id: appUserId,
     }),
     date: formData.get("date"),
-    activity: formData.get("sport"),
+    activity, // ← updated or original
     distance: formData.get("distance"),
     duration: formData.get("duration"),
     location: formData.get("spot"),
-    comments: formData.get("discipline"),
-  };
+    comments: formData.get("comments"), // keep real comments
+   };
 }

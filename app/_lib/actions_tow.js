@@ -13,7 +13,7 @@ function handleSupabaseError(error, operation) {
   throw new Error(`${operation} failed. Please try again later.`);
 }
 
-//Add new location
+//Add new tow data
 export async function addTow(formData) {
   const session = await auth();
   if (!session) throw new Error("You must be logged in");
