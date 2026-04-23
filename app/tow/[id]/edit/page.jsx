@@ -75,35 +75,7 @@ const Page = (params) => {
       }
     };
     fetchData();
-  }, []); // Empty dependency array so the effect runs once
-
-
-
-  // useEffect(() => {
-  //   const fetchEquipmentData = async () => {
-  //     if (!id) return;
-  //     try {
-  //       const equipmentData = await getSpecificSession(id);
-  //       setEquipmentData(equipmentData);
-  //     } catch (error) {
-  //       console.error("Error fetching equipment technical Data:", error);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
-
-  //   if (equipmentData === null) {
-  //     fetchEquipmentData();
-  //   }
-  // }, [id, equipmentData]);
-
-  // if (!equipmentData && !loading) {
-  //   return (
-  //     <h1 className="mt-10 text-2xl font-bold text-center">
-  //       Location Data Not Found
-  //     </h1>
-  //   );
-  // }
+  }, [id]); // Re-fetch if id changes
 
   if (loading) {
     return <Spinner />;

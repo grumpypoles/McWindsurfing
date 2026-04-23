@@ -9,7 +9,7 @@ export default function Accordian({ children, value, onChange, ...props }) {
 
   useEffect(() => {
     onChange?.(selected)
-  }, [selected])
+  }, [selected, onChange])
 
   return (
     <ul {...props}>
@@ -31,7 +31,7 @@ export function AccordianItem({ children, value, trigger, ...props }) {
       <header
         role="button"
         onClick={() => setSelected(open ? null : value)}
-        className="flex justify-between items-center p-4 font-medium"
+        className="flex items-center justify-between p-4 font-medium"
       >
         {trigger}
         <ChevronDownIcon
@@ -43,7 +43,7 @@ export function AccordianItem({ children, value, trigger, ...props }) {
         className="overflow-y-hidden transition-all"
         style={{ height: open ? ref.current?.offsetHeight || 0 : 0 }}
       >
-        <div className=" text-primary-800 text-sm pt-2 p-4" ref={ref}>
+        <div className="p-4 pt-2 text-sm  text-primary-800" ref={ref}>
           {children}
         </div>
       </div>

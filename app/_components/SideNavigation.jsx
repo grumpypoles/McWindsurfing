@@ -1,36 +1,30 @@
 "use client";
 
 import {
-  ScaleIcon,
-  HomeIcon,
   UserIcon,
-  Cog6ToothIcon,
-  ComputerDesktopIcon,
-  LifebuoyIcon,
-  PlayCircleIcon,
-  PencilSquareIcon,
-  WalletIcon,
+  WrenchScrewdriverIcon,
+  WrenchIcon,
+  BoltIcon,
   GlobeAsiaAustraliaIcon,
-  WrenchScrewdriverIcon, 
-  WrenchIcon
+  PlayCircleIcon,
+  ChevronDownIcon,
 } from "@heroicons/react/24/solid";
 
-import SignOutButton from "@/app/_components/SignOutButton";
 import Link from "next/link";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
 
 const navLinks = [
-    {
+  {
     name: "User profile",
     href: "/account/profile",
     icon: <UserIcon className="w-5 h-5 text-primary-600" />,
   },
- 
   {
     name: "Settings",
     href: "/account/admin",
     icon: <WrenchScrewdriverIcon className="w-5 h-5 text-primary-600" />,
+    hasChildren: true,
   },
 ];
 
@@ -48,13 +42,12 @@ const navSubLinks = [
   {
     name: "Wind Power",
     href: "/account/admin/windpower",
-    icon: <WrenchIcon className="w-5 h-5 text-primary-600" />,
+    icon: <BoltIcon className="w-5 h-5 text-primary-600" />,
   },
- 
   {
     name: "Wind Directions",
     href: "/account/admin/winddirection",
-    icon: <WrenchIcon className="w-5 h-5 text-primary-600" />,
+    icon: <BoltIcon className="w-5 h-5 text-primary-600" />,
   },
   {
     name: "Ocean Swell",
@@ -64,62 +57,70 @@ const navSubLinks = [
   {
     name: "Ocean Sports",
     href: "/account/admin/sports",
-    icon: <WrenchIcon className="w-5 h-5 text-primary-600" />,
+    icon: <PlayCircleIcon className="w-5 h-5 text-primary-600" />,
   },
   {
     name: "Ocean Locations",
     href: "/locations",
-    icon: <WrenchIcon className="w-5 h-5 text-primary-600" />,
+    icon: <GlobeAsiaAustraliaIcon className="w-5 h-5 text-primary-600" />,
   },
- 
-  
-  ];
+];
 
-
-
+const linkClass = (active) =>
+  `py-3 px-5 hover:bg-primary-900 hover:text-primary-100 transition-colors flex items-center gap-4 font-semibold text-primary-200 ${
+    active ? "bg-primary-800" : ""
+  }`;
 
 const SideNavigation = () => {
   const pathname = usePathname();
   const [activeMenu, setActiveMenu] = useState(null);
 
-  const handleMenuClick = (name) => {
+  const toggleMenu = (name) =>
     setActiveMenu((prev) => (prev === name ? null : name));
-  };
 
   return (
     <ul className="flex flex-col h-full gap-2 text-lg">
       {navLinks.map((link) => (
         <li key={link.name}>
-          <div onClick={() => handleMenuClick(link.name)}>
+          <div className="flex items-center">
             <Link
-              className={`py-3 px-5 hover:bg-primary-900 hover:text-primary-100 transition-colors flex items-center gap-4 font-semibold text-primary-200 ${
-                pathname === link.href ? "bg-primary-800" : ""
-              }`}
+              className={`flex-1 ${linkClass(pathname === link.href)}`}
               href={link.href}
             >
               {link.icon}
               <span>{link.name}</span>
             </Link>
+
+            {link.hasChildren && (
+              <button
+                type="button"
+                onClick={() => toggleMenu(link.name)}
+                className="px-3 py-3 transition-colors hover:bg-primary-900 text-primary-200"
+                aria-label={`${activeMenu === link.name ? "Collapse" : "Expand"} ${link.name}`}
+              >
+                <ChevronDownIcon
+                  className={`w-4 h-4 transition-transform duration-200 ${
+                    activeMenu === link.name ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
+            )}
           </div>
 
-          {link.name === "Settings" && activeMenu === "Settings" && (
-            <>
-              <ul className="pl-5">
-                {navSubLinks.map((subs) => (
-                  <li key={subs.name}>
-                    <Link
-                      className={`py-3 px-5 hover:bg-primary-900 hover:text-primary-100 transition-colors flex items-center gap-4 font-semibold text-primary-200 ${
-                        pathname === subs.href ? "bg-primary-800" : ""
-                      }`}
-                      href={subs.href}
-                    >
-                      {subs.icon}
-                      <span>{subs.name}</span>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </>
+          {link.hasChildren && activeMenu === link.name && (
+            <ul className="pl-5">
+              {navSubLinks.map((sub) => (
+                <li key={sub.name}>
+                  <Link
+                    className={linkClass(pathname === sub.href)}
+                    href={sub.href}
+                  >
+                    {sub.icon}
+                    <span>{sub.name}</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
           )}
         </li>
       ))}

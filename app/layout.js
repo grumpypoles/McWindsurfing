@@ -8,12 +8,11 @@ const josefin = Josefin_Sans({
 });
 
 import "@/app/_styles/globals.css";
-import { Toaster } from "react-hot-toast";
 
 export const metadata = {
   // title: 'McActive',
   title: {
-    template: "%s: McWindusurf",
+    template: "%s: McWindsurf",
     default: "Welcome: McWindsurf",
   },
   description:
@@ -30,20 +29,7 @@ export default function RootLayout({ children }) {
         <div className="grid flex-1 px-8 py-12">
           <main className="w-full mx-auto max-w-7xl">{children}</main>
         </div>
-        {/* <Toaster
-          position="top-center"
-          gutter={12}
-          containerStyle={{ margin: "8px" }}
-          toastOptions={{
-            success: { duration: 3000 },
-            error: { duration: 5000 },
-            style: {
-              fontSize: "16px",
-              maxWidth: "500px",
-              padding: "16px 24px",
-            },
-          }}
-        /> */}
+       
       </body>
     </html>
   );

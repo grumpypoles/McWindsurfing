@@ -50,11 +50,11 @@ useEffect(() => {
        
         setLat(lat);
         setLng(lng);
-        setViewport({
-            ...viewport,
-            latitude: lat,
-            longitude: lng,
-        })
+        setViewport((prev) => ({
+          ...prev,
+          latitude: lat,
+          longitude: lng,
+        }))
 
         setLoading(false);
       } catch (error) {
