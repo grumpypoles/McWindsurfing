@@ -1,7 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation"
+import { redirect } from "next/navigation";
 import { auth } from "@/app/_lib/auth";
 import { supabase } from "@/app/_lib/supabase";
 import { UploadFiles } from "../_components/UploadFiles";
@@ -13,6 +13,10 @@ function handleSupabaseError(error, operation) {
   throw new Error(`${operation} failed. Please try again later.`);
 }
 
+const DEFAULT_INVOICE_URL = [
+  `https://res.cloudinary.com/${process.env.CLOUDINARY_CLOUD_NAME}/image/upload/v1726637089/ws_invoices/bicuzgst2ulxyhly0ixd.png`
+];
+
 //Add new sundry
 export async function addSundry(formData) {
   const session = await auth();
@@ -21,11 +25,15 @@ export async function addSundry(formData) {
   // Upload Images
   const images = formData.getAll("image");
   const imageUrls = await UploadFiles(images, "ws_images");
-  
 
   // Upload Invoices
   const invoices = formData.getAll("invoice");
-  const invoiceUrls = await UploadFiles(invoices, "ws_invoices");
+  const hasValidInvoices =
+    invoices.length > 0 && invoices.some((file) => file && file.size > 0);
+
+  const invoiceUrls = hasValidInvoices
+    ? await UploadFiles(invoices, "ws_invoices")
+    : DEFAULT_INVOICE_URL;
 
   // Get form data
 
@@ -33,7 +41,7 @@ export async function addSundry(formData) {
     formData,
     imageUrls,
     session.user.appUserId,
-    "add"
+    "add",
   );
 
   const financialData = buildFinancialData(formData, invoiceUrls, "add");
@@ -79,7 +87,7 @@ export async function editSundry(formData) {
     formData,
     imageUrls,
     session.user.appUserId,
-    "edit"
+    "edit",
   );
 
   const financialData = buildFinancialData(formData, invoiceUrls, "edit");

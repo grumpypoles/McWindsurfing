@@ -16,39 +16,7 @@ function ChartWSBarTime({ rowData }) {
     },
     theme: "ag-vivid-dark",
 
-    // subtitle:{
-    //   text: "In meters"
-    // },
-
-    // series: [
-    //   {
-    //     type: "bar",
-    //     xKey: "category",
-    //     yKey: "counter",
-    //     yName: "counter",
-    //   },
-    // ],
-    // axes: [
-    //   {
-    //     type: "category",
-    //     position: "bottom",
-    //   },
-    //   {
-    //     type: "number",
-    //     position: "left",
-    //     keys: ["counter"],
-    //     title: {
-    //       text: "Occurrence",
-    //     },
-    //     interval: {step: 25},
-    //     label: {
-    //     formatter: (params) => {
-    //       return params.value  + " times";
-    //     },
-    //   },
-    //   },
-
-    // ],
+    
     series: [
       {
         type: "donut",
@@ -60,9 +28,6 @@ function ChartWSBarTime({ rowData }) {
     }
     ],
 
-    // legend: {
-    //   position: "right"
-    // }
   };
 
   return (

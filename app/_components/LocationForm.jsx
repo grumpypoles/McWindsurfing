@@ -173,26 +173,7 @@ const LocationForm = ({ equipment, edit }) => {
           </form>
         </div>
       </div>
-      {/* {edit && imageUrls.length > 0 && (
-        <div className="flex flex-row justify-center px-6 py-8 space-x-7 max-h-96 bg-primary-800">
-          <Image
-            src={imageUrls[0]} // Use the first image URL
-            alt="Sundry Image"
-            height={0}
-            width={0}
-            sizes="100vw"
-            className="w-1/6 h-auto rounded-t-xl"
-          />
-          <Image
-            src={invoiceUrls[0]}
-            alt="Invoice Image"
-            height={0}
-            width={0}
-            sizes="100vw"
-            className="w-1/6 h-auto rounded-t-xl"
-          />
-        </div>
-      )} */}
+    
     </>
   );
 };
