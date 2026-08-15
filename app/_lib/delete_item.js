@@ -2,8 +2,9 @@
 
 import cloudinary from "@/app/_lib/cloudinary";
 import { supabase } from "@/app/_lib/supabase";
+import { revalidatePath } from "next/cache";
 
-async function delete_item(eqData, eqCategory) {
+async function delete_item(eqData, eqCategory, revalidateTo) {
   const dataImage = eqData[0].image;
   const dataInvoice = eqData[0].invoice;
   const selcode = eqData[0].selcode;
@@ -70,6 +71,8 @@ async function delete_item(eqData, eqCategory) {
       .delete()
       .eq("selcode", selcode);
     if (catError) throw new Error("Cost record could not be deleted");
+
+    if (revalidateTo) revalidatePath(revalidateTo);
   } else {
     console.error("Failed to delete images or invoices. Operation aborted.");
   }
