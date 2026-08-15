@@ -9,8 +9,7 @@ import Spinner from "@/app/_components/Spinner";
 import { getSail } from "@/app/_lib/actions_sails";
 import SailDashboard from "@/app/_components/SailDashboard";
 import { useTransition } from "react";
-import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation"
+import { useRouter } from "next/navigation"
 import delete_item from "@/app/_lib/delete_item";
 
 const Page = () => {
@@ -18,6 +17,7 @@ const Page = () => {
   const [equipmentData, setEquipmentData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isPending, startTransition] = useTransition();
+  const router = useRouter();
 
   useEffect(() => {
     const fetchEquipmentData = async () => {
@@ -49,10 +49,8 @@ const Page = () => {
     if (confirm("Are you sure you want to delete this record?")) {
       startTransition(async () => {
         try {
-          await delete_item(equipmentData, "ws_sails");
-          // Optionally show success message or redirect user after deletion
-          revalidatePath("/sails");
-          redirect("/sails");
+          await delete_item(equipmentData, "ws_sails", "/sails");
+          router.push("/sails");
         } catch (error) {
           console.error("Error deleting item:", error);
           // Show error feedback to the user

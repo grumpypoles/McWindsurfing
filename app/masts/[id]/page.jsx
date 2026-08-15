@@ -9,7 +9,6 @@ import { getMast } from "@/app/_lib/actions_masts";
 import Spinner from "@/app/_components/Spinner";
 import MastDashboard from "@/app/_components/MastDashboard";
 import { useTransition } from "react";
-import { revalidatePath } from "next/cache";
 
 import delete_item from "@/app/_lib/delete_item";
 
@@ -18,6 +17,7 @@ const Page = () => {
   const [equipmentData, setEquipmentData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isPending, startTransition] = useTransition();
+  const router = useRouter();
 
   useEffect(() => {
     const fetchEquipmentData = async () => {
@@ -49,10 +49,8 @@ const Page = () => {
     if (confirm("Are you sure you want to delete this record?")) {
       startTransition(async () => {
         try {
-          await delete_item(equipmentData, "ws_masts");
-          // Optionally show success message or redirect user after deletion
-          revalidatePath("/masts");
-          redirect("/masts");
+          await delete_item(equipmentData, "ws_masts", "/masts");
+          router.push("/masts");
         } catch (error) {
           console.error("Error deleting item:", error);
           // Show error feedback to the user

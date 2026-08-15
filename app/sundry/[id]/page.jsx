@@ -9,8 +9,7 @@ import Spinner from "@/app/_components/Spinner";
 import { getSundry } from "@/app/_lib/actions_sundry";
 import SundryDashboard from "@/app/_components/SundryDashboard";
 import { useTransition } from "react";
-import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation"
+import { useRouter } from "next/navigation"
 import delete_item from "@/app/_lib/delete_item";
 
 const Page = () => {
@@ -18,6 +17,7 @@ const Page = () => {
   const [equipmentData, setEquipmentData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isPending, startTransition] = useTransition();
+  const router = useRouter();
 
   useEffect(() => {
     const fetchEquipmentData = async () => {
@@ -49,10 +49,8 @@ const Page = () => {
     if (confirm("Are you sure you want to delete this record?")) {
       startTransition(async () => {
         try {
-          await delete_item(equipmentData, "ws_sundry");
-          // Optionally show success message or redirect user after deletion
-          revalidatePath("/sundry")
-          redirect("/sundry");
+          await delete_item(equipmentData, "ws_sundry", "/sundry");
+          router.push("/sundry");
         } catch (error) {
           console.error("Error deleting item:", error);
           // Show error feedback to the user
