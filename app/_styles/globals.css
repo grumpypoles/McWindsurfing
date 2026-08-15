@@ -1,8 +1,19 @@
+/* Syncfusion — tailwind dark theme */
+@import '../../node_modules/@syncfusion/ej2-base/styles/tailwind-dark.css';
+@import '../../node_modules/@syncfusion/ej2-buttons/styles/tailwind-dark.css';
+@import '../../node_modules/@syncfusion/ej2-dropdowns/styles/tailwind-dark.css';
+@import '../../node_modules/@syncfusion/ej2-grids/styles/tailwind-dark.css';
+@import '../../node_modules/@syncfusion/ej2-inputs/styles/tailwind-dark.css';
+@import '../../node_modules/@syncfusion/ej2-lists/styles/tailwind-dark.css';
+@import '../../node_modules/@syncfusion/ej2-navigations/styles/tailwind-dark.css';
+@import '../../node_modules/@syncfusion/ej2-popups/styles/tailwind-dark.css';
+@import '../../node_modules/@syncfusion/ej2-splitbuttons/styles/tailwind-dark.css';
+@import '../../node_modules/@syncfusion/ej2-calendars/styles/tailwind-dark.css';
+@import '../../node_modules/@syncfusion/ej2-react-pivotview/styles/tailwind-dark.css';
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
 
 @layer components {
   .spinner {
@@ -32,23 +43,10 @@
   }
 }
 
-/* For data picker */
+/* Date picker */
 .rdp {
   --rdp-cell-size: 32px !important;
   --rdp-accent-color: theme('colors.accent.500') !important;
   --rdp-background-color: theme('colors.accent.600') !important;
   margin: 0 !important;
 }
-
-
-@import '../../node_modules/@syncfusion/ej2-base/styles/tailwind-dark.css';
-@import '../../node_modules/@syncfusion/ej2-buttons/styles/tailwind-dark.css';
-@import '../../node_modules/@syncfusion/ej2-dropdowns/styles/tailwind-dark.css';
-@import '../../node_modules/@syncfusion/ej2-grids/styles/tailwind-dark.css';
-@import '../../node_modules/@syncfusion/ej2-inputs/styles/tailwind-dark.css';
-@import '../../node_modules/@syncfusion/ej2-lists/styles/tailwind-dark.css';
-@import '../../node_modules/@syncfusion/ej2-navigations/styles/tailwind-dark.css';
-@import '../../node_modules/@syncfusion/ej2-popups/styles/tailwind-dark.css';
-@import "../../node_modules/@syncfusion/ej2-splitbuttons/styles/tailwind-dark.css";
-@import '../../node_modules/@syncfusion/ej2-calendars/styles/tailwind-dark.css';
-@import '../../node_modules/@syncfusion/ej2-react-pivotview/styles/tailwind-dark.css';
