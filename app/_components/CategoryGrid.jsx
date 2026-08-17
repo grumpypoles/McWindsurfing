@@ -1,8 +1,8 @@
 "use client";
 
 import { AgGridReact } from "ag-grid-react";
-import "ag-grid-community/styles/ag-grid.css";
-import "ag-grid-community/styles/ag-theme-quartz.css";
+import { themeQuartz, colorSchemeDarkBlue } from "ag-grid-community";
+import "@/app/_components/agGridModules";
 import { useMemo, useState } from "react";
 
 import DuplicateCategory from "@/app/_components/DuplicateCategory";
@@ -64,8 +64,9 @@ const CategoryGrid = ({ rowData }) => {
   ]);
 
   return (
-    <div className="ag-theme-quartz-dark" style={{ height: 405 }}>
+    <div style={{ height: 405 }}>
       <AgGridReact
+        theme={themeQuartz.withPart(colorSchemeDarkBlue)}
         rowData={rowData}
         columnDefs={colDefs}
         tooltipShowDelay={500}

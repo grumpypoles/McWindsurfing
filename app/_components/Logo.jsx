@@ -9,9 +9,9 @@ function Logo() {
       <Image
         src={logo}
         quality={100}
-        height="60"
-        width="60"
-        alt="McActive logo"
+        height={60}
+        width={60}
+        alt="McWindsurf logo"
       />
       <span className="px-3 py-2 text-xl font-semibold transition-colors text-primary-100 hover:bg-primary-700" >McWindsurf</span>
     </Link>

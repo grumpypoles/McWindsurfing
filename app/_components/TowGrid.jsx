@@ -1,8 +1,8 @@
 "use client";
 
 import { AgGridReact } from "ag-grid-react";
-import "ag-grid-community/styles/ag-grid.css";
-import "ag-grid-community/styles/ag-theme-quartz.css";
+import { themeQuartz, colorSchemeDarkBlue } from "ag-grid-community";
+import "@/app/_components/agGridModules";
 import { useMemo, useState } from "react";
 import DeleteTow from "@/app/_components/DeleteTow";
 import TowDetails from "@/app/_components/TowDetails";
@@ -71,8 +71,9 @@ const TowGrid = ({ rowData }) => {
   ]);
 
   return (
-    <div className="ag-theme-quartz-dark" style={{ height: 525 }}>
+    <div style={{ height: 525 }}>
       <AgGridReact
+        theme={themeQuartz.withPart(colorSchemeDarkBlue)}
         rowData={rowData}
         columnDefs={colDefs}
         pagination={true}

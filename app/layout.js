@@ -23,6 +23,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
+       suppressHydrationWarning
         className={`${josefin.className} antialiased min-h-screen bg-primary-950 text-primary-100 flex flex-col relative`}
       >
         <Header />
