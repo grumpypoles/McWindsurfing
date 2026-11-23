@@ -196,13 +196,21 @@ export function towRecData(formData, appUserId, action) {
   let activity = sport;
 
   // Override only for SUP rules
+  // if (sport === "SUP") {
+  //   if (discipline === "Long Distance") {
+  //     activity = "SUP - Flat Water";
+  //   } else if (discipline === "Surfing") {
+  //     activity = "SUP - Surf";
+  //   }
+  // }
+
   if (sport === "SUP") {
-    if (discipline === "Long Distance") {
-      activity = "SUP - Flat Water";
-    } else if (discipline === "Surfing") {
-      activity = "SUP - Surf";
-    }
+  if (["Long Distance", "Just Cruising"].includes(discipline)) {
+    activity = "SUP - Flat Water";
+  } else if (discipline === "Surfing") {
+    activity = "SUP - Surf";
   }
+}
 
   return {
     ...(action === "add" && {
